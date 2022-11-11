@@ -109,3 +109,17 @@ article > img {
     padding: 0 12px;
     text-transform: lowercase;
 }
+
+.ep_list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.ep_list > .ep {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: 1rem;
+}

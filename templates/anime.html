@@ -8,9 +8,10 @@
 
 {% block body %}
 
+
 <div class="page-content">
 
-    <div class="header-wrap">
+    <div class="header_wrapper">
         {% if anime.banner_image %}
             <img src="{{anime.banner_image}}" alt="banner image" class="bannerImage">
         {% else %}
@@ -19,7 +20,11 @@
         {% endif %}
 
         <div class="title_desc">
-            <p class="animeTitle">{{anime.title}}</p>
+            {% if anime.title['english'] %}
+                <p class="animeTitle">{{anime.title['english']}}</p>
+            {% else %}
+                <p class="animeTitle">{{anime.title['romaji']}}</p>
+            {% endif %}
             <p class="animeDesc">{{anime.description}}</p>
             <div class="genres">
                 {% for genre in anime.genres %}
@@ -29,7 +34,18 @@
         </div>
 
         <img src="{{anime.image_url}}" alt="anime image" class="animeImage">
+
+    </div>
         
+    <div class="ep_list">
+
+        {% for episode in list_episodes %}
+            <div class="ep">
+                <p class="ep_num">Episode {{ loop.index }}</p>
+                <iframe src="{{episode}}" frameborder="0" allowfullscreen></iframe>
+            </div>
+        {% endfor %}
+
     </div>
 
 </div>

@@ -13,7 +13,11 @@
 
     <article class="card">
 
-        <h5 class="anime_title">{{ anime.title }}</h5>
+        {% if anime.title['english'] %}
+            <h5 class="animet_title">{{anime.title['english']}}</h5>
+        {% else %}
+            <h5 class="animet_title">{{anime.title['romaji']}}</h5>
+        {% endif %}
         <em class="anime_status">{{ anime.status }}</em>
         {% if anime.is_adult %}
             <a href="anime/{{anime.id}}" class="anime_url">

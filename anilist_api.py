@@ -46,6 +46,7 @@ def get_ids_by_name(anime_name):
                 description
                 bannerImage
                 isAdult
+                format
             }
         }
     }
