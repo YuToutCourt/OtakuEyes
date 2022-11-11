@@ -1,12 +1,1 @@
-Idée : 
-
-Prend je json de chaque site (si il y a en)
-
-Regarder le fichier json et essayer de trouver un nom qui ce rapproche le plus possible de l'anime qu'on cherche
-(Méthode binaire sur la recherche ou import re (faire des tests de vitesse))
-
-Créer l'url avec ça
-
-
-
-REGARDER LES Synonyms de anilist aussi
+Add more streaming platforms to your website
