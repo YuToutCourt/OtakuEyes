@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+
+{% endblock %}
+
+
+{% block body %}
+
+<div class="page-content">
+
+    <div class="header-wrap">
+        {% if anime.banner_image %}
+            <img src="{{anime.banner_image}}" alt="banner image" class="bannerImage">
+        {% else %}
+            <img src="https://preview.redd.it/dtljzwihuh861.jpg?width=960&crop=smart&auto=webp&s=afcfc996c8cff92d665f1219beeebd8744ab84f2" alt="banner image" class="bannerImage">
+
+        {% endif %}
+
+        <div class="title_desc">
+            <p class="animeTitle">{{anime.title}}</p>
+            <p class="animeDesc">{{anime.description}}</p>
+            <div class="genres">
+                {% for genre in anime.genres %}
+                    <p class="anime_genre">{{ genre }}</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <img src="{{anime.image_url}}" alt="anime image" class="animeImage">
+        
+    </div>
+
+</div>
+
+
+{% endblock %}

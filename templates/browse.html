@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+
+{% endblock %}
+
+
+{% block body %}
+
+<div class="results">
+{% for anime in animes %}
+
+    <article class="card">
+
+        <h5 class="anime_title">{{ anime.title }}</h5>
+        <em class="anime_status">{{ anime.status }}</em>
+        {% if anime.is_adult %}
+            <a href="anime/{{anime.id}}" class="anime_url">
+                <img src="{{ anime.image_url }}" alt="anime image" class="imageA18">
+            </a>
+        {% else %}
+            <a href="anime/{{anime.id}}" class="anime_url">
+                <img src="{{ anime.image_url }}" alt="anime image" class="imageA">
+            </a>
+        {% endif %}
+        <div class="genres">
+            {% for genre in anime.genres %}
+                <p class="anime_genre">{{ genre }}</p>
+            {% endfor %}
+        </div>
+    </article>
+{% endfor %}
+</div>
+
+
+{% endblock %}
