@@ -3,7 +3,7 @@ from flask import Flask, render_template, request
 from anilist_api import get_ids_by_name, retrive_anime
 from anime import create_anime_object
 
-from neko_sama_scraping import find_anime_in_neko_sama, get_all_episodes_from_neko_sama
+from neko_sama_scraping import find_anime_in_neko_sama, get_video_url_of, get_nb_episodes
 
 app = Flask(__name__)
 
@@ -19,14 +19,19 @@ def browse():
     return render_template('browse.html', animes=animes)
 
 
-@app.route('/anime/<id>')
-def anime(id):
+@app.route('/anime/<id>/<ep>')
+def anime(id, ep):
     anime_data = retrive_anime(id)
     anime = create_anime_object(anime_data['data']['Media'])
 
-    list_episodes = get_all_episodes_from_neko_sama(find_anime_in_neko_sama(anime.title['romaji']))
+    anime_data_neko = find_anime_in_neko_sama(anime.title['english'])
+    url_video = get_video_url_of(anime_data_neko, ep)
+    nb_episodes = get_nb_episodes(anime_data_neko)
 
-    return render_template('anime.html', id=id, anime=anime, list_episodes=list_episodes)
+    return render_template('anime.html', id=id, ep=int(ep), anime=anime, url_video=url_video, nb_episodes=nb_episodes)
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

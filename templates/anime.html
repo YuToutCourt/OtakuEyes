@@ -2,7 +2,6 @@
 
 {% block head %}
 
-
 {% endblock %}
 
 
@@ -39,12 +38,17 @@
         
     <div class="ep_list">
 
-        {% for episode in list_episodes %}
-            <div class="ep">
-                <p class="ep_num">Episode {{ loop.index }}</p>
-                <iframe src="{{episode}}" frameborder="0" allowfullscreen></iframe>
-            </div>
-        {% endfor %}
+        <p class="ep_num">Épisode {{ep}}</p>
+        <iframe src="{{url_video}}" frameborder="0" allowfullscreen width="840" height="500"></iframe>
+
+        <div class="ep_nav">
+            {% if ep > 1 %}
+                <a href="/anime/{{anime.id}}/{{ep-1}}" class="ep_nav_link">< Épisode précédent</a>
+            {% endif %}
+            {% if ep < nb_episodes %}
+                <a href="/anime/{{anime.id}}/{{ep+1}}" class="ep_nav_link">Épisode suivant ></a>
+            {% endif %}
+        </div>
 
     </div>
 

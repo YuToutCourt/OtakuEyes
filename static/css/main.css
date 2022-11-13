@@ -43,6 +43,10 @@ article > img {
     object-fit: cover;
     filter: drop-shadow(0 0 0.75rem black);
     height: 500px;
+
+    /* Only work for Chrome, Opera 15 and Safari 4 */
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+    
 }
 
 .animeImage {
@@ -111,15 +115,26 @@ article > img {
 }
 
 .ep_list {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
+    margin: auto;
+    width: 46%;
+    transform: translateY(-75%);
 }
 
-.ep_list > .ep {
+.ep_nav {
     display: flex;
-    flex-direction: column;
-    text-align: center;
-    margin: 1rem;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 1rem 0;
+}
+
+.ep_nav_link {
+    background: hsl(50,52%,75%);
+    border-radius: 10px;
+    color: hsl(42,37%,22%);
+    display: inline-block;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-right: 11px;
+    padding: 0 12px;
 }

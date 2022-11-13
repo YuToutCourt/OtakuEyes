@@ -1,7 +1,9 @@
 import os, re
 import json
 import difflib
+import random
 import requests
+
 
 from bs4 import BeautifulSoup
 
@@ -10,7 +12,8 @@ URL = "https://neko-sama.fr/animes-search-vostfr.json"
 def get_json():
     """Return the json file from neko_sama.json"""
 
-    if os.path.exists('neko_sama.json'):
+    # Get the json file
+    if os.path.exists('neko_sama.json') and random.randint(0, 10) < 4:
         with open('neko_sama.json', 'r') as f:
             return json.load(f)
     else:
@@ -24,47 +27,49 @@ def find_anime_in_neko_sama(title_from_anilist:str):
     """Return the anime from neko_sama.json that is the closest to the title from anilist"""
     data = get_json()
 
-    anime_name = difflib.get_close_matches(title_from_anilist, [anime['title'] for anime in data], n=1, cutoff=0.6)
+    anime_name = difflib.get_close_matches(title_from_anilist, [anime['title_english'] for anime in data], n=1, cutoff=0.6)
+
+    print(anime_name, title_from_anilist)
 
     for anime in data:
-        if anime['title'] == anime_name[0]:
+        if anime['title_english'] == anime_name[0]:
             return anime
     
     return None
 
+def get_nb_episodes(anime:dict):
+    """Return the number of episodes from neko_sama.json"""
+    if anime['type'] == "m0v1e":
+        return 1
+    return int(anime['nb_eps'].split(' ')[0])
 
-def get_all_episodes_from_neko_sama(anime:dict):
+def get_video_url_of(anime:dict, episode:int):
+    """Return the url of the episode from neko_sama.json"""
+
+    url_episode = get_link_ep_anime(anime, episode)
+
+    r = requests.get(url_episode)
+    soup = BeautifulSoup(r.text, 'lxml')
+
+    # Don't ask me I have done black magic
+    script = soup.find_all('script')
+    script = script[2].text
+
+    index_= script.index('else')
+    str_ = script[index_:index_+100]
+
+    # find the url in the string
+    url = re.findall(r'(https?://[^\s]+)', str_)[0]
+    url = url.split("'")[0]
+
+    return url
+
+def get_link_ep_anime(anime:dict, episode:int):
     """Return all the episodes from neko_sama.json"""
 
     # Build url episode
-    nb_episode = int(anime['nb_eps'].split(' ')[0])
     tmp_url = anime['url'].split('/')[-1].split('-')
-    tmp_url.insert(-1, "01")
+    tmp_url.insert(-1, str(episode).zfill(2))
     url = '-'.join(tmp_url)
 
-    # Get all links of the episodes to parse
-    episodes = []
-    for i in range(1, nb_episode + 1):
-        episodes.append(url.replace('01', str(i).zfill(2)))
-    
-    # Parse all the episodes
-    all_episodes = []
-    for episode in episodes:
-        r = requests.get(f"https://www.neko-sama.fr/anime/episode/{episode}")
-        soup = BeautifulSoup(r.text, 'lxml')
-
-        # Don't ask me I have done black magic
-        script = soup.find_all('script')
-        print(script)
-        script = script[2].text
-
-        index_= script.index('else')
-        str_ = script[index_:index_+100]
-
-        # find the url in the string
-        url = re.findall(r'(https?://[^\s]+)', str_)[0]
-        url = url.split("'")[0]
-
-        all_episodes.append(url)
-
-    return all_episodes
+    return "https://www.neko-sama.fr/anime/episode/" + url
