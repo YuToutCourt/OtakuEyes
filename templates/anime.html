@@ -35,22 +35,32 @@
         <img src="{{anime.image_url}}" alt="anime image" class="animeImage">
 
     </div>
-        
+    
+    {% if ep == -1 %}
     <div class="ep_list">
+        <h3>Pas d'épisode trouver</h3>
+        <img src="{{ url_for('static', filename='image/sorry.gif') }}" alt="sorry" class="sorry">
+    </div>
 
-        <p class="ep_num">Épisode {{ep}}</p>
-        <iframe src="{{url_video}}" frameborder="0" allowfullscreen width="840" height="500"></iframe>
+    {% else %}
 
-        <div class="ep_nav">
-            {% if ep > 1 %}
-                <a href="/anime/{{anime.id}}/{{ep-1}}" class="ep_nav_link">< Épisode précédent</a>
-            {% endif %}
-            {% if ep < nb_episodes %}
-                <a href="/anime/{{anime.id}}/{{ep+1}}" class="ep_nav_link">Épisode suivant ></a>
-            {% endif %}
+        <div class="ep_list">
+
+            <p class="ep_num">Épisode {{ep}}</p>
+            <iframe src="{{url_video}}" frameborder="0" allowfullscreen width="840" height="500"></iframe>
+
+            <div class="ep_nav">
+                {% if ep > 1 %}
+                    <a href="/anime/{{anime.id}}/{{ep-1}}" class="ep_nav_link">< Épisode précédent</a>
+                {% endif %}
+                {% if ep < nb_episodes %}
+                    <a href="/anime/{{anime.id}}/{{ep+1}}" class="ep_nav_link">Épisode suivant ></a>
+                {% endif %}
+            </div>
+
         </div>
 
-    </div>
+    {% endif %}
 
 </div>
 

@@ -1,3 +1,4 @@
+import logging
 import os, re
 import json
 import difflib
@@ -27,21 +28,34 @@ def find_anime_in_neko_sama(title_from_anilist:str):
     """Return the anime from neko_sama.json that is the closest to the title from anilist"""
     data = get_json()
 
-    anime_name = difflib.get_close_matches(title_from_anilist, [anime['title_english'] for anime in data], n=1, cutoff=0.6)
+    try:
+        # Get the anime title from neko_sama.json that is the closest to the title from anilist
+        anime_name = difflib.get_close_matches(title_from_anilist, [anime['title_english'] for anime in data], n=1, cutoff=0.6)
+    
+    except Exception as e:
+        logging.error(e)
+        return None
+    
+    print(f"-----DEBUG :\nAnilist: {title_from_anilist}\nNeko Sama: {anime_name}\n-----")
 
-    print(anime_name, title_from_anilist)
+    # If there is no anime that is close enough
+    if len(anime_name) == 0: return None
 
+    # Get the anime from neko_sama.json
     for anime in data:
         if anime['title_english'] == anime_name[0]:
             return anime
-    
-    return None
 
 def get_nb_episodes(anime:dict):
     """Return the number of episodes from neko_sama.json"""
     if anime['type'] == "m0v1e":
         return 1
-    return int(anime['nb_eps'].split(' ')[0])
+
+    value = anime['nb_eps'].split(' ')[0]
+    if value.isdigit():
+        return int(value)
+    
+    return 100
 
 def get_video_url_of(anime:dict, episode:int):
     """Return the url of the episode from neko_sama.json"""
