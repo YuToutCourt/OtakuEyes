@@ -8,7 +8,7 @@ from neko_sama_scraping import find_anime_in_neko_sama, get_video_url_of, get_nb
 app = Flask(__name__)
 
 
-@app.route('/')
+@app.route('/home')
 def index():
     return render_template('index.html')
 

@@ -2,10 +2,37 @@
 <html> 
     <head>
         <title>Otaku Eyes</title>
+        <link rel="icon" href="{{ url_for('static', filename='image/logo.png') }}">
         <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
         {% block head %}{% endblock %}
     </head>
     <body>
+        <header>
+            <nav>
+
+                <form action="browse" method="post">
+
+                    <a href="/home" >
+                        <img src="{{ url_for('static', filename='image/logo.png') }}" alt="logo" width="55" height="50">
+                    </a>
+                
+                    <h6>
+                        <a href="/home" > Home </a>
+                    </h6>
+                    
+                    <h6>
+                        <a href="/home" > Top Anime </a>
+                    </h6>
+
+                    <label for="rechercher">
+                        <input type="text" name="search" placeholder="Rechercher..." id="rechercher">
+                        <input type="image" src="{{ url_for('static', filename='image/loupe.png') }}"
+                         alt="Rechercher une offre" class="nav_icon">
+                    </label>
+                
+            </form>
+            </nav>
+        </header>
         {% block body %}{% endblock %}
     </body>
 </html>

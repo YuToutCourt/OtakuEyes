@@ -55,6 +55,7 @@ def get_nb_episodes(anime:dict):
     if value.isdigit():
         return int(value)
     
+    # If the number of episodes is unknown (ex: ?) use a default value of 100 episodes (it's enough)
     return 100
 
 def get_video_url_of(anime:dict, episode:int):
