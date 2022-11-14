@@ -18,7 +18,8 @@ def browse():
     anime_data = get_ids_by_name(name)
 
     animes = [create_anime_object(anime) for anime in anime_data['data']['Page']['media'] 
-                if anime['format'] not in ["MANGA", "NOVEL", "ONE_SHOT", "MUSIC", "LIGHT_NOVEL", "VISUAL_NOVEL", "SPECIAL"]]
+                if anime['format'] not in ["MANGA", "NOVEL", "ONE_SHOT", "MUSIC", "LIGHT_NOVEL", "VISUAL_NOVEL", "SPECIAL"] and \
+                    anime['status'] not in ["NOT_YET_RELEASED", "CANCELLED"]]
 
     return render_template('browse.html', animes=animes)
 
@@ -38,6 +39,9 @@ def anime(id, ep):
     return render_template('anime.html', id=id, ep=int(ep), anime=anime, url_video=url_video, nb_episodes=nb_episodes)
 
 
+@app.route('/top_anime')
+def top_anime():
+    return render_template('top_anime.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
