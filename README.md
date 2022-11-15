@@ -1,3 +1,5 @@
+![](https://raw.githubusercontent.com/Wongt8/OtakuEyesGitV/main/Resources/OtakuEyesLogo.png "Banner")
+
 # OtakuEyes-Flask
 
 <img src="https://img.shields.io/badge/Python-3-brightgreen.svg?style=plastic">
