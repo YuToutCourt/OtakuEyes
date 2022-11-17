@@ -2,3 +2,4 @@ requests==2.28.1
 bs4==0.0.1
 Flask==2.2.2
 distlib==0.3.6
+lxml==4.9.1
