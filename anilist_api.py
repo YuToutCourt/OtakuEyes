@@ -18,7 +18,6 @@ def get_id_by_name(anime_name):
 
     return response.json()
 
-
 def get_ids_by_name(anime_name):
     query = '''
     query ($id: Int, $page: Int, $perPage: Int, $search: String) {
@@ -61,7 +60,6 @@ def get_ids_by_name(anime_name):
 
     return response.json()
 
-
 def retrive_anime(id):
     query = f'''
     query ($id: Int) {{
@@ -83,6 +81,23 @@ def retrive_anime(id):
           isAdult
       }}
     }}
+    '''
+
+    variables = { 'id': id }
+
+    response = requests.post(URL, json={'query': query, 'variables': variables})
+
+    return response.json()
+
+def get_next_ep(id):
+    query = '''
+    query ($id: Int) {
+        Media (id: $id, type: ANIME) {
+            nextAiringEpisode {
+                episode
+            }
+        }
+    }
     '''
 
     variables = { 'id': id }

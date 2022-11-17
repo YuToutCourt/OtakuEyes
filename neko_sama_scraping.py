@@ -6,6 +6,7 @@ import random
 import requests
 
 from bs4 import BeautifulSoup
+from anilist_api import get_next_ep
 
 URL = "https://neko-sama.fr/animes-search-vostfr.json"
 
@@ -45,7 +46,7 @@ def find_anime_in_neko_sama(title_from_anilist:str):
         if anime['title_english'] == anime_name[0]:
             return anime
 
-def get_nb_episodes(anime:dict):
+def get_nb_episodes(anime:dict, id):
     """Return the number of episodes from neko_sama.json"""
     if anime['type'] == "m0v1e":
         return 1
@@ -53,9 +54,14 @@ def get_nb_episodes(anime:dict):
     value = anime['nb_eps'].split(' ')[0]
     if value.isdigit():
         return int(value)
+
+    ep = get_next_ep(id).get('data').get('Media').get('nextAiringEpisode')
+
+    if ep is None:
+        # If the number of episodes is unknown (ex: ?) use a default value of 100 episodes (it's enough)
+        return 100
     
-    # If the number of episodes is unknown (ex: ?) use a default value of 100 episodes (it's enough)
-    return 100
+    return ep.get('episode') - 1 
 
 def get_video_url_of(anime:dict, episode:int):
     """Return the url of the episode from neko_sama.json"""

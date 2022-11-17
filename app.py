@@ -7,6 +7,9 @@ from neko_sama_scraping import find_anime_in_neko_sama, get_video_url_of, get_nb
 
 app = Flask(__name__)
 
+@app.route('/')
+def redirect():
+    return render_template('index.html')
 
 @app.route('/home')
 def index():
@@ -34,7 +37,7 @@ def anime(id, ep):
         return render_template('anime.html', id=id, ep=-1, anime=anime)
 
     url_video = get_video_url_of(anime_data_neko, ep)
-    nb_episodes = get_nb_episodes(anime_data_neko)
+    nb_episodes = get_nb_episodes(anime_data_neko, id)
 
     return render_template('anime.html', id=id, ep=int(ep), anime=anime, url_video=url_video, nb_episodes=nb_episodes)
 

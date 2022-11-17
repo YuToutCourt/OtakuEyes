@@ -113,10 +113,15 @@ article > img {
     text-transform: lowercase;
 }
 
-.ep_list {
+.episode {
     margin: auto;
     width: 46%;
-    transform: translateY(-75%);
+    transform: translateY(-65%);
+}
+
+.episodes *{
+    border-radius: 5px;
+    background-color: rgb(21, 31, 46);
 }
 
 .ep_nav {
@@ -137,7 +142,6 @@ article > img {
     margin-right: 11px;
     padding: 0 12px;
 }
-
 
 #rechercher{
     width: 500px;

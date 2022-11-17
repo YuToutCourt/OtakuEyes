@@ -44,7 +44,7 @@
 
     {% else %}
 
-        <div class="ep_list">
+        <div class="episode">
 
             <p class="ep_num">Épisode {{ep}}</p>
             <iframe src="{{url_video}}" frameborder="0" allowfullscreen width="840" height="500"></iframe>
@@ -58,13 +58,13 @@
                 {% endif %}
             </div>
 
-            <!-- <div class="ep_list">
+            <div class="ep_list">
                 <select name="episodes" id="episodes" onchange="window.location.href=this.value">
                     {% for i in range(1, nb_episodes+1) %}
                         <option value="/anime/{{anime.id}}/{{i}}" {% if i == ep %}selected{% endif %}>Épisode {{i}}</option>
                     {% endfor %}
                 </select>
-            </div> -->
+            </div>
 
         </div>
 
