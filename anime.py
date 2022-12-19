@@ -18,6 +18,13 @@ class Anime:
 
 
 def create_anime_object(anime_data: dict) :
+    """
+    :param anime_data: The data returned by the Anilist API
+
+    Creates an Anime object from the data returned by the Anilist API
+
+    :return: Anime object
+    """
     id = anime_data.get('id')
     title = anime_data.get('title')
     image_url = anime_data.get('coverImage').get('large')

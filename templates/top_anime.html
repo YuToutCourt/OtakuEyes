@@ -7,6 +7,93 @@
 
 
 {% block body %}
+<h5 class="title">TRENDING NOW</h5>
+<div class="results">
+{% for anime in trending_now %}
+    <article class="card">
+        {% if anime.title['english'] %}
+            <h5 class="animet_title">{{anime.title['english']}}</h5>
+        {% else %}
+            <h5 class="animet_title">{{anime.title['romaji']}}</h5>
+        {% endif %}
+        <em class="anime_status">{{ anime.format }}</em>
+        {% if anime.is_adult %}
+            <a href="anime/{{anime.id}}/1" class="anime_url">
+                <img src="{{ anime.image_url }}" alt="anime image" class="imageA18">
+            </a>
+        {% else %}
+            <a href="anime/{{anime.id}}/1" class="anime_url">
+                <img src="{{ anime.image_url }}" alt="anime image" class="imageA">
+            </a>
+        {% endif %}
+        <em class="anime_status">{{ anime.status }}</em>
+        <div class="genres">
+            {% for genre in anime.genres %}
+                <p class="anime_genre">{{ genre }}</p>
+            {% endfor %}
+        </div>
+    </article>
+{% endfor %}
+</div>
+
+<h5 class="title">POPULAR THIS SEASON</h5>
+<div class="results">
+{% for anime in this_season %}
+    <article class="card">
+        {% if anime.title['english'] %}
+            <h5 class="animet_title">{{anime.title['english']}}</h5>
+        {% else %}
+            <h5 class="animet_title">{{anime.title['romaji']}}</h5>
+        {% endif %}
+        <em class="anime_status">{{ anime.format }}</em>
+        {% if anime.is_adult %}
+            <a href="anime/{{anime.id}}/1" class="anime_url">
+                <img src="{{ anime.image_url }}" alt="anime image" class="imageA18">
+            </a>
+        {% else %}
+            <a href="anime/{{anime.id}}/1" class="anime_url">
+                <img src="{{ anime.image_url }}" alt="anime image" class="imageA">
+            </a>
+        {% endif %}
+        <em class="anime_status">{{ anime.status }}</em>
+        <div class="genres">
+            {% for genre in anime.genres %}
+                <p class="anime_genre">{{ genre }}</p>
+            {% endfor %}
+        </div>
+    </article>
+{% endfor %}
+</div>
+
+<h5 class="title">ALL TIME POPULAR</h5>
+<div class="results">
+{% for anime in most_popular %}
+    <article class="card">
+        {% if anime.title['english'] %}
+            <h5 class="animet_title">{{anime.title['english']}}</h5>
+        {% else %}
+            <h5 class="animet_title">{{anime.title['romaji']}}</h5>
+        {% endif %}
+        <em class="anime_status">{{ anime.format }}</em>
+        {% if anime.is_adult %}
+            <a href="anime/{{anime.id}}/1" class="anime_url">
+                <img src="{{ anime.image_url }}" alt="anime image" class="imageA18">
+            </a>
+        {% else %}
+            <a href="anime/{{anime.id}}/1" class="anime_url">
+                <img src="{{ anime.image_url }}" alt="anime image" class="imageA">
+            </a>
+        {% endif %}
+        <em class="anime_status">{{ anime.status }}</em>
+        <div class="genres">
+            {% for genre in anime.genres %}
+                <p class="anime_genre">{{ genre }}</p>
+            {% endfor %}
+        </div>
+    </article>
+{% endfor %}
+</div>
+
 
 
 {% endblock %}
