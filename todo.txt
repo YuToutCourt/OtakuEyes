@@ -1,3 +1,7 @@
-- Add more streaming platforms to your website
+- Add more streaming platforms to your website (autre que mavanime)
 
-+ Refont of the way to watch the videos (do not fetch all the video on the click, but only the one you want to watch)
+- 11eyes (anime that make the website crash)
+    11eyes n'est pas dispo sur neko-sama (mavanime à 11eyes)
+    11eyes OVA est dispo sur neko-sama mais pas trouvé avec mon code (done)
+
+
