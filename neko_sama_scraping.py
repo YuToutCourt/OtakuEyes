@@ -14,7 +14,7 @@ def get_json():
     """Return the json file from neko_sama.json"""
 
     # Get the json file
-    if os.path.exists('neko_sama.json') and random.randint(0, 10) < 4:
+    if os.path.exists('neko_sama.json') and random.randint(0, 10) < 2:
         with open('neko_sama.json', 'r') as f:
             return json.load(f)
     else:
