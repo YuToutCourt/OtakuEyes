@@ -80,10 +80,10 @@ def get_video_url_of(anime:dict, episode:int):
     script = soup.find_all('script')
 
     # Use that to debug
-    # for i, s in enumerate(script):
-    #     print(i, s)
+    for i, s in enumerate(script):
+        print(i, s)
     
-    script = script[4].text
+    script = script[3].text
 
     index_= script.index('else')
     str_ = script[index_:index_+100]
