@@ -77,16 +77,17 @@ def get_video_url_of(anime:dict, episode:int):
     soup = BeautifulSoup(r.text, 'lxml')
 
     # Don't ask me I have done black magic
-    script = soup.find_all('script')
+    scripts = soup.find_all('script')
 
-    # Use that to debug
-    for i, s in enumerate(script):
-        print(i, s)
-    
-    script = script[3].text
-
-    index_= script.index('else')
-    str_ = script[index_:index_+100]
+    for i, script in enumerate(scripts):
+        # print('else' in script.text)
+        if 'else' in script.text:
+            s = scripts[i].text
+            # print(s)
+            index_= s.index('else')
+            str_ = s[index_:index_+100]
+            break
+    else: return None
 
     # find the url in the string
     try:
