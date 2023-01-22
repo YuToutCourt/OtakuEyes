@@ -23,33 +23,37 @@ def get_json():
             json.dump(r.json(), f)
         return r.json()
 
-def find_anime_in_neko_sama(title_from_anilist:str):
+def find_anime_in_neko_sama(title_from_anilist:list[str]):
     """Return the anime from neko_sama.json that is the closest to the title from anilist"""
     data = get_json()
+    for anime_name in title_from_anilist:
+        try:
+            # Get the anime title from neko_sama.json that is the closest to the title from anilist
+            anime_name0 = difflib.get_close_matches(anime_name, [anime['title_english'] for anime in data], n=1, cutoff=0.6)
+            anime_name1 = difflib.get_close_matches(anime_name, [anime['title'] if anime['title'] else "a" for anime in data], n=1, cutoff=0.6)
+            anime_name2 = difflib.get_close_matches(anime_name, [anime['title_romanji'] if anime['title_romanji'] else "a" for anime in data], n=1, cutoff=0.6)
+
+            list_of_final_anime_name = anime_name0 + anime_name1 + anime_name2
+
+            anime_name = difflib.get_close_matches(anime_name, list_of_final_anime_name, n=1, cutoff=0.6)
+                                                                
+        except Exception as e:
+            logging.error(e)
+            return None
     
-    try:
-        # Get the anime title from neko_sama.json that is the closest to the title from anilist
-        anime_name0 = difflib.get_close_matches(title_from_anilist, [anime['title_english'] for anime in data], n=1, cutoff=0.6)
-        anime_name1 = difflib.get_close_matches(title_from_anilist, [anime['title'] if anime['title'] else "a" for anime in data], n=1, cutoff=0.6)
-        anime_name2 = difflib.get_close_matches(title_from_anilist, [anime['title_romanji'] if anime['title_romanji'] else "a" for anime in data], n=1, cutoff=0.6)
+        print(f"-----DEBUG :\nAnilist: {title_from_anilist}\nNeko Sama: {anime_name}\n-----")
 
-        list_of_final_anime_name = anime_name0 + anime_name1 + anime_name2
+        # If there is no anime that is close enough
+        if len(anime_name) == 0: continue
 
-        anime_name = difflib.get_close_matches(title_from_anilist, list_of_final_anime_name, n=1, cutoff=0.6)
-                                                               
-    except Exception as e:
-        logging.error(e)
-        return None
+        # Get the anime from neko_sama.json
+        for anime in data:
+            if anime_name[0] in [anime['title_english'], anime['title'], anime['title_romanji']]:
+                return anime
     
-    print(f"-----DEBUG :\nAnilist: {title_from_anilist}\nNeko Sama: {anime_name}\n-----")
+    else : return None
 
-    # If there is no anime that is close enough
-    if len(anime_name) == 0: return None
 
-    # Get the anime from neko_sama.json
-    for anime in data:
-        if anime_name[0] in [anime['title_english'], anime['title'], anime['title_romanji']]:
-            return anime
 
 def get_nb_episodes(anime:dict, id):
     """Return the number of episodes from neko_sama.json"""
@@ -104,7 +108,10 @@ def get_link_ep_anime(anime:dict, episode:int):
 
     # Build url episode
     tmp_url = anime['url'].split('/')[-1].split('-')
-    tmp_url.insert(-1, str(episode).zfill(2))
+    end_url = tmp_url[-1].split('_')
+    end_url.insert(1,f'-{str(episode).zfill(2)}_')
+    tmp_url[-1] = ''.join(end_url)
+    print(tmp_url)
     url = '-'.join(tmp_url)
 
     return "https://www.neko-sama.fr/anime/episode/" + url
