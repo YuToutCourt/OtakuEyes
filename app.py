@@ -39,13 +39,13 @@ def anime(id, ep):
     if anime_data_neko is None:
         return render_template('anime.html', id=id, ep=-1, anime=anime)
 
-    url_video = get_video_url_of(anime_data_neko, ep)
-    if url_video is None:
+    urls_video = get_video_url_of(anime_data_neko, ep)
+    if urls_video is None:
         return render_template('anime.html', id=id, ep=-1, anime=anime)
 
     nb_episodes = get_nb_episodes(anime_data_neko, id)
 
-    return render_template('anime.html', id=id, ep=int(ep), anime=anime, url_video=url_video, nb_episodes=nb_episodes)
+    return render_template('anime.html', id=id, ep=int(ep), anime=anime, urls_video=urls_video, nb_episodes=nb_episodes)
 
 
 @app.route('/top_anime')

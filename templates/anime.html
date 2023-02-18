@@ -54,8 +54,7 @@
         <div class="episode">
 
             <p class="ep_num">Épisode {{ep}}</p>
-            <iframe src="{{url_video}}" frameborder="0" allowfullscreen width="840" height="500"></iframe>
-
+            
             <div class="ep_nav">
                 {% if ep > 1 %}
                     <a href="/anime/{{anime.id}}/{{ep-1}}" class="ep_nav_link">< Épisode précédent</a>
@@ -72,6 +71,12 @@
                     {% endfor %}
                 </select>
             </div>
+
+
+
+            {% for url_video in urls_video %}
+                <iframe src="{{url_video}}" frameborder="0" allowfullscreen width="840" height="500"></iframe>
+            {% endfor %}
 
         </div>
 

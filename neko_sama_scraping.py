@@ -85,23 +85,23 @@ def get_video_url_of(anime:dict, episode:int):
 
     for i, script in enumerate(scripts):
         # print('else' in script.text)
-        if 'else' in script.text:
+        if 'video' in script.text:
             s = scripts[i].text
             # print(s)
-            index_= s.index('else')
-            str_ = s[index_:index_+100]
+            index_= s.index('video')
+            str_ = s[index_:index_+150]
             break
     else: return None
 
     # find the url in the string
-    try:
-        url = re.findall(r'(https?://[^\s]+)', str_)[0]
-    except IndexError:
-        return None
-    else:
-        url = url.split("'")[0]
+    urls = re.findall(r'(https?://[^\s]+)', str_)
 
-    return url
+    if len(urls) == 0: return None
+
+    for index, url in enumerate(urls):
+        urls[index] = url.split("'")[0]
+
+    return urls
 
 def get_link_ep_anime(anime:dict, episode:int):
     """Return all the episodes from neko_sama.json"""
