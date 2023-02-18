@@ -6,7 +6,7 @@ import random
 import requests
 
 from bs4 import BeautifulSoup
-from anilist_api import get_next_ep
+from anilist.anilist_api import get_next_ep
 
 URL = "https://neko-sama.fr/animes-search-vostfr.json"
 

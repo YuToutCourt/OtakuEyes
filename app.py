@@ -1,9 +1,9 @@
 from flask import Flask, render_template, request
 
-from anilist_api import get_ids_by_name, retrive_anime, top_anime_by_trends, top_anime_by_popularity, top_anime_this_season, get_current_season
-from anime import create_anime_object
+from anilist.anilist_api import get_ids_by_name, retrive_anime, top_anime_by_trends, top_anime_by_popularity, top_anime_this_season, get_current_season
+from anime.anime import create_anime_object
 
-from neko_sama_scraping import find_anime_in_neko_sama, get_video_url_of, get_nb_episodes
+from scrapping.neko_sama_scraping import find_anime_in_neko_sama, get_video_url_of, get_nb_episodes
 
 app = Flask(__name__)
 
