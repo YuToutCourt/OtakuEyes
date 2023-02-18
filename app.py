@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 
-from anilist_api import get_ids_by_name, retrive_anime, top_anime_by_trends, top_anime_by_popularity, top_anime_this_season 
+from anilist_api import get_ids_by_name, retrive_anime, top_anime_by_trends, top_anime_by_popularity, top_anime_this_season, get_current_season
 from anime import create_anime_object
 
 from neko_sama_scraping import find_anime_in_neko_sama, get_video_url_of, get_nb_episodes
@@ -54,7 +54,10 @@ def top_anime():
     most_popular = [create_anime_object(anime) for anime in top_anime_by_popularity()]
     this_season = [create_anime_object(anime) for anime in top_anime_this_season()]
 
-    return render_template('top_anime.html', trending_now=trending_now, most_popular=most_popular, this_season=this_season)
+    current_season = get_current_season()
+
+    return render_template('top_anime.html', trending_now=trending_now, most_popular=most_popular, 
+                            this_season=this_season, current_season=current_season)
 
 if __name__ == '__main__':
     app.run(debug=True)

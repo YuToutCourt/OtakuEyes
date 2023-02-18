@@ -6,6 +6,10 @@ from datetime import datetime
 SEASON = ['WINTER', 'SPRING', 'SUMMER', 'FALL']
 URL = 'https://graphql.anilist.co'
 
+def get_current_season():
+    return SEASON[(datetime.now().month -1) // 3]
+
+
 def top_anime_by_trends(page=1, per_page=6, sort=['TRENDING_DESC']):
     query = '''
     query ($page: Int, $perPage: Int, $sort: [MediaSort]) {
@@ -91,7 +95,7 @@ def top_anime_by_popularity(page=1, per_page=6, sort=['POPULARITY_DESC']):
     return response.json().get('data').get('Page').get('media')
   
 def top_anime_this_season(page=1, per_page=6, sort=['POPULARITY_DESC']):
-    season = SEASON[(datetime.now().month -1) // 3]
+    season = get_current_season()
     season_year = datetime.now().year
     query = '''
     query ($page: Int, $perPage: Int, $sort: [MediaSort], $season: MediaSeason, $seasonYear: Int) {

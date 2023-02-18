@@ -89,6 +89,8 @@ article > img {
 .imageA {
     box-shadow: 12px 12px 2px 1px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
+    height: 295px;
+    width: 215px;
 }
 
 .imageA18 {
