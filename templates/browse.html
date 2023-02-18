@@ -13,12 +13,12 @@
 
     <article class="card">
 
-        {% if anime.title['english'] %}
-            <h5 class="animet_title">{{anime.title['english']}}</h5>
-        {% else %}
-            <h5 class="animet_title">{{anime.title['romaji']}}</h5>
-        {% endif %}
-        <em class="anime_status">{{ anime.format }}</em>
+        <div class="genres">
+            {% for genre in anime.genres %}
+                <p class="anime_genre">{{ genre }}</p>
+            {% endfor %}
+        </div>
+        
         {% if anime.is_adult %}
             <a href="anime/{{anime.id}}/1" class="anime_url">
                 <img src="{{ anime.image_url }}" alt="anime image" class="imageA18">
@@ -28,12 +28,17 @@
                 <img src="{{ anime.image_url }}" alt="anime image" class="imageA">
             </a>
         {% endif %}
-        <em class="anime_status">{{ anime.status }}</em>
-        <div class="genres">
-            {% for genre in anime.genres %}
-                <p class="anime_genre">{{ genre }}</p>
-            {% endfor %}
-        </div>
+
+
+
+        {% if anime.title['english'] %}
+         <h5 class="anime_title">{{anime.title['english']}}</h5>
+        {% else %}
+            <h5 class="anime_title">{{anime.title['romaji']}}</h5>
+        {% endif %}
+
+        
+
     </article>
 {% endfor %}
 </div>

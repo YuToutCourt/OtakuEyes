@@ -13,16 +13,10 @@ a {
 
 .results  {
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
 }
 
-.anime_title {
-    margin: 0;
-    padding-top: 5rem;
-    height: 50%;
-}
 
 article {
     display: flex;
