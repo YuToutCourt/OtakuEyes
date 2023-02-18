@@ -3,7 +3,8 @@ from flask import Flask, render_template, request
 from anilist.anilist_api import get_ids_by_name, retrive_anime, top_anime_by_trends, top_anime_by_popularity, top_anime_this_season, get_current_season
 from anime.anime import create_anime_object
 
-from scrapping.neko_sama_scraping import NekoSamaScrapper
+from scraping.neko_sama_scraping import NekoSamaScraper
+from scraping.anime_resistance_scraping import AnimeResistanceScraper
 
 app = Flask(__name__)
 
@@ -13,8 +14,10 @@ def redirect():
 
 @app.route('/home')
 def index():
-    neko_sama = NekoSamaScrapper("https://www.neko-sama.fr")
-    anime_main_page = neko_sama.scrap_main_page()
+    neko_sama = NekoSamaScraper("https://www.neko-sama.fr")
+    anime_resistance = AnimeResistanceScraper("https://animeresistance.stream")
+
+    anime_main_page = neko_sama.scrap_main_page() | anime_resistance.scrap_main_page()
     
     return render_template('index.html', anime_main_page=anime_main_page)
 
@@ -37,7 +40,7 @@ def anime(id, ep):
 
     anime_name_list = [anime.title['english'], anime.title['romaji']]
 
-    neko_sama_scrapper = NekoSamaScrapper("https://www.neko-sama.fr")
+    neko_sama_scrapper = NekoSamaScraper("https://www.neko-sama.fr")
     print(neko_sama_scrapper.url)
 
     anime_data_neko = neko_sama_scrapper.find_anime_in_neko_sama(anime_name_list)

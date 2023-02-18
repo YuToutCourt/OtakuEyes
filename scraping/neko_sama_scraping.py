@@ -11,7 +11,7 @@ from anilist.anilist_api import get_next_ep, get_id_by_name, retrive_anime
 
 URL_JSON = "https://neko-sama.fr/animes-search-vostfr.json"
 
-class NekoSamaScrapper:
+class NekoSamaScraper:
     def __init__(self, url:str):
         self.url = url
 
@@ -22,7 +22,7 @@ class NekoSamaScrapper:
         /!\ VF anime are not included
         """
 
-        animes_list = []
+        animes_list = set()
         page = requests.get(self.url)
         soup = BeautifulSoup(page.content, 'html.parser')
         all_anime = soup.find_all('a', class_='title')
@@ -41,9 +41,9 @@ class NekoSamaScrapper:
             if anime_data is None: continue
 
             anime_data['data']['Media']['episodes'] = ep
-            print(anime_data)
-            animes_list.append(create_anime_object(anime_data.get('data').get('Media')))
+            animes_list.add(create_anime_object(anime_data.get('data').get('Media')))
 
+        print(animes_list)
         return animes_list
 
 

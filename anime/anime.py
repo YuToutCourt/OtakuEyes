@@ -18,6 +18,13 @@ class Anime:
         self.episode = episode
 
 
+    def __hash__(self) -> int:
+        return hash(self.id)
+
+    def __eq__(self, other) -> bool:
+        return self.id == other.id
+
+
 def create_anime_object(anime_data: dict) :
     """
     :param anime_data: The data returned by the Anilist API
