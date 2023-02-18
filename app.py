@@ -3,7 +3,7 @@ from flask import Flask, render_template, request
 from anilist.anilist_api import get_ids_by_name, retrive_anime, top_anime_by_trends, top_anime_by_popularity, top_anime_this_season, get_current_season
 from anime.anime import create_anime_object
 
-from scrapping.neko_sama_scraping import find_anime_in_neko_sama, get_video_url_of, get_nb_episodes
+from scrapping.neko_sama_scraping import NekoSamaScrapper
 
 app = Flask(__name__)
 
@@ -13,7 +13,10 @@ def redirect():
 
 @app.route('/home')
 def index():
-    return render_template('index.html')
+    neko_sama = NekoSamaScrapper("https://www.neko-sama.fr")
+    anime_main_page = neko_sama.scrap_main_page()
+    
+    return render_template('index.html', anime_main_page=anime_main_page)
 
 @app.route('/browse', methods=['POST'])
 def browse():
@@ -34,16 +37,19 @@ def anime(id, ep):
 
     anime_name_list = [anime.title['english'], anime.title['romaji']]
 
-    anime_data_neko = find_anime_in_neko_sama(anime_name_list)
+    neko_sama_scrapper = NekoSamaScrapper("https://www.neko-sama.fr")
+    print(neko_sama_scrapper.url)
+
+    anime_data_neko = neko_sama_scrapper.find_anime_in_neko_sama(anime_name_list)
     print(anime_data_neko)
     if anime_data_neko is None:
         return render_template('anime.html', id=id, ep=-1, anime=anime)
 
-    urls_video = get_video_url_of(anime_data_neko, ep)
+    urls_video = neko_sama_scrapper.get_video_url_of(anime_data_neko, ep)
     if urls_video is None:
         return render_template('anime.html', id=id, ep=-1, anime=anime)
 
-    nb_episodes = get_nb_episodes(anime_data_neko, id)
+    nb_episodes = neko_sama_scrapper.get_nb_episodes(anime_data_neko, id)
 
     return render_template('anime.html', id=id, ep=int(ep), anime=anime, urls_video=urls_video, nb_episodes=nb_episodes)
 

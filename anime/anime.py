@@ -4,7 +4,7 @@ from typing import List
 class Anime:
     def __init__(self, id:int, title:dict[str], image_url:str, description:str, 
                     genres:List[str], color:str, status:str, is_adult:bool, 
-                    banner_image:str, format:str):
+                    banner_image:str, format:str, episode:int=None):
         self.id = id
         self.title = title
         self.image_url = image_url
@@ -15,6 +15,7 @@ class Anime:
         self.is_adult = is_adult
         self.banner_image = banner_image
         self.format = format
+        self.episode = episode
 
 
 def create_anime_object(anime_data: dict) :
@@ -34,9 +35,14 @@ def create_anime_object(anime_data: dict) :
     status = anime_data.get('status')
     is_adult = anime_data.get('isAdult')
     banner_image = anime_data.get('bannerImage')
-    format = anime_data.get('format') 
+    format = anime_data.get('format')
+
+    if anime_data.get('episodes') is not None:
+        episodes = anime_data.get('episodes')
+    else:
+        episodes = None
 
     if len(genres) == 0: 
         genres = ['Unknown']
 
-    return Anime(id, title, image_url, description, genres, color, status, is_adult, banner_image, format)
+    return Anime(id, title, image_url, description, genres, color, status, is_adult, banner_image, format, episodes)
