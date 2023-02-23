@@ -22,11 +22,11 @@
             </div>
             
             {% if anime.is_adult %}
-                <a href="anime/{{anime.id}}/1" class="anime_url">
+                <a href="anime/{{anime.id}}/{{anime.episode}}" class="anime_url">
                     <img src="{{ anime.image_url }}" alt="anime image" class="imageA18">
                 </a>
             {% else %}
-                <a href="anime/{{anime.id}}/1" class="anime_url">
+                <a href="anime/{{anime.id}}/{{anime.episode}}" class="anime_url">
                     <img src="{{ anime.image_url }}" alt="anime image" class="imageA">
                 </a>
             {% endif %}
