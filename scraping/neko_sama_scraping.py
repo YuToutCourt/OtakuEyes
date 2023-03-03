@@ -9,7 +9,8 @@ from bs4 import BeautifulSoup
 from anime.anime import Anime, create_anime_object
 from anilist.anilist_api import get_next_ep, get_id_by_name, retrive_anime
 
-URL_JSON = "https://neko-sama.fr/animes-search-vostfr.json"
+# URL_JSON = "https://neko-sama.fr/animes-search-vostfr.json"
+URL_JSON = "https://185.146.232.127/animes-search-vostfr.json"
 
 class NekoSamaScraper:
     def __init__(self, url:str):
@@ -23,7 +24,7 @@ class NekoSamaScraper:
         """
 
         animes_list = set()
-        page = requests.get(self.url)
+        page = requests.get(self.url, verify=False)
         soup = BeautifulSoup(page.content, 'html.parser')
         all_anime = soup.find_all('a', class_='title')
         for anime in all_anime:
@@ -46,7 +47,6 @@ class NekoSamaScraper:
         print(animes_list)
         return animes_list
 
-
     def get_json(self):
         """Return the json file from neko_sama.json"""
 
@@ -55,7 +55,7 @@ class NekoSamaScraper:
             with open('neko_sama.json', 'r') as f:
                 return json.load(f)
         else:
-            r = requests.get(URL_JSON)
+            r = requests.get(URL_JSON, verify=False)
             with open('neko_sama.json', 'w') as f:
                 json.dump(r.json(), f)
             return r.json()
@@ -112,7 +112,7 @@ class NekoSamaScraper:
 
         url_episode = self.get_link_ep_anime(anime, episode)
         print(url_episode)
-        r = requests.get(url_episode)
+        r = requests.get(url_episode, verify=False)
         soup = BeautifulSoup(r.text, 'lxml')
 
         # Don't ask me I have done black magic
@@ -149,4 +149,6 @@ class NekoSamaScraper:
         print(tmp_url)
         url = '-'.join(tmp_url)
 
-        return "https://www.neko-sama.fr/anime/episode/" + url
+        return "https://185.146.232.127/anime/episode/" + url
+
+        # return "https://www.neko-sama.fr/anime/episode/" + url

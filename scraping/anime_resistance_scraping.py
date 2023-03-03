@@ -16,7 +16,7 @@ class AnimeResistanceScraper:
         """
 
         animes_list = set()
-        page = requests.get(self.url)
+        page = requests.get(self.url, verify=False)
         soup = BeautifulSoup(page.content, 'html.parser')
         all_anime = soup.find_all('div', class_='info')
         for anime in all_anime:
