@@ -26,7 +26,7 @@ class AnimeResistanceScraper:
         
             if "(VF)" in str_anime[0] : continue
 
-            title, ep = str_anime[0], int(str_anime[1].strip())
+            title, ep = str_anime[0], int(float(str_anime[1].strip()))
             data = get_id_by_name(title)
             if data.get('errors') is not None: continue
 
