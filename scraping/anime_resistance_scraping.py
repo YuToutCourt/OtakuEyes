@@ -2,7 +2,7 @@ import requests
 
 from bs4 import BeautifulSoup
 from anime.anime import Anime, create_anime_object
-from anilist.anilist_api import get_next_ep, get_id_by_name, retrive_anime
+from anilist.anilist_api import get_id_by_name, retrive_anime
 
 class AnimeResistanceScraper:
     def __init__(self, url):
@@ -38,5 +38,4 @@ class AnimeResistanceScraper:
             anime_data['data']['Media']['episodes'] = ep
             animes_list.add(create_anime_object(anime_data.get('data').get('Media')))
 
-        print(animes_list)
         return animes_list

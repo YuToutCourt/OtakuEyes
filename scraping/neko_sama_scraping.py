@@ -1,12 +1,11 @@
 import logging
-import os, re
+import re
 import json
 import difflib
-import random
 import requests
 
 from bs4 import BeautifulSoup
-from anime.anime import Anime, create_anime_object
+from anime.anime import create_anime_object
 from anilist.anilist_api import get_next_ep, get_id_by_name, retrive_anime
 
 # URL_JSON = "https://neko-sama.fr/animes-search-vostfr.json"
@@ -51,44 +50,43 @@ class NekoSamaScraper:
         """Return the json file from neko_sama.json"""
 
         # Get the json file
-        if os.path.exists('neko_sama.json') and random.randint(0, 10) < 2:
-            with open('neko_sama.json', 'r') as f:
-                return json.load(f)
-        else:
-            r = requests.get(URL_JSON, verify=False)
-            with open('neko_sama.json', 'w') as f:
-                json.dump(r.json(), f)
-            return r.json()
+        r = requests.get(URL_JSON, verify=False)
+        with open('neko_sama.json', 'w') as f:
+            json.dump(r.json(), f, indent=4)
+        return r.json()
 
     def find_anime_in_neko_sama(self, title_from_anilist:list[str]):
         """Return the anime from neko_sama.json that is the closest to the title from anilist"""
+        print("Debug: find_anime_in_neko_sama", title_from_anilist)
         data = self.get_json()
-        for anime_name in title_from_anilist:
-            try:
-                # Get the anime title from neko_sama.json that is the closest to the title from anilist
-                anime_name0 = difflib.get_close_matches(anime_name, [anime['title_english'] for anime in data], n=1, cutoff=0.6)
-                anime_name1 = difflib.get_close_matches(anime_name, [anime['title'] if anime['title'] else "a" for anime in data], n=1, cutoff=0.6)
-                anime_name2 = difflib.get_close_matches(anime_name, [anime['title_romanji'] if anime['title_romanji'] else "a" for anime in data], n=1, cutoff=0.6)
 
-                list_of_final_anime_name = anime_name0 + anime_name1 + anime_name2
+        anime_name_anilist = " ".join(title_from_anilist)
 
-                anime_name = difflib.get_close_matches(anime_name, list_of_final_anime_name, n=1, cutoff=0.6)
-                                                                    
-            except Exception as e:
-                logging.error(e)
-                return None
+        try:
+            # Get the anime title from neko_sama.json that is the closest to the title from anilist
+            anime_name0 = difflib.get_close_matches(anime_name_anilist, [anime['title_english'] if anime["title_english"] else 'a' for anime in data], n=1, cutoff=0.6)
+            anime_name1 = difflib.get_close_matches(anime_name_anilist, [anime['title'] if anime['title'] else 'a' for anime in data], n=1, cutoff=0.6)
+            anime_name2 = difflib.get_close_matches(anime_name_anilist, [anime['title_romanji'] if anime['title_romanji'] else 'a' for anime in data], n=1, cutoff=0.6)
+
+            list_of_final_anime_name = anime_name0 + anime_name1 + anime_name2
+            anime_name = difflib.get_close_matches(anime_name_anilist, list_of_final_anime_name, n=1, cutoff=0.6)
+                                                                
+        except Exception as e:
+            logging.error(e)
+            return None
+    
+        print(f"-----DEBUG :\nAnilist: {title_from_anilist}\nNeko Sama: {anime_name}\n-----")
+
+        # If there is no anime that is close enough
+        if len(anime_name) == 0: return None
+
+        # Get the anime from neko_sama.json
+        for anime in data:
+            if anime_name[0] in [anime['title_english'], anime['title'], anime['title_romanji']]:
+                return anime
         
-            print(f"-----DEBUG :\nAnilist: {title_from_anilist}\nNeko Sama: {anime_name}\n-----")
+        else: return None
 
-            # If there is no anime that is close enough
-            if len(anime_name) == 0: continue
-
-            # Get the anime from neko_sama.json
-            for anime in data:
-                if anime_name[0] in [anime['title_english'], anime['title'], anime['title_romanji']]:
-                    return anime
-        
-        else : return None
 
     def get_nb_episodes(self, anime:dict, id):
         """Return the number of episodes from neko_sama.json"""

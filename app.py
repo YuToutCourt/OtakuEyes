@@ -1,3 +1,5 @@
+import urllib3
+
 from flask import Flask, render_template, request
 
 from anilist.anilist_api import get_ids_by_name, retrive_anime, top_anime_by_trends, top_anime_by_popularity, top_anime_this_season, get_current_season
@@ -7,6 +9,7 @@ from scraping.neko_sama_scraping import NekoSamaScraper
 from scraping.anime_resistance_scraping import AnimeResistanceScraper
 
 app = Flask(__name__)
+urllib3.disable_warnings()
 
 @app.route('/')
 def redirect():
