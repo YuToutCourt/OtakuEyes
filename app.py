@@ -12,11 +12,8 @@ urllib3.disable_warnings()
 
 @app.route('/')
 def redirect():
-    neko_sama = NekoSamaScraper("https://185.146.232.127")
-
-    anime_main_page = neko_sama.scrap_main_page()
     
-    return render_template('index.html', anime_main_page=anime_main_page)
+    return index()
 
 @app.route('/home')
 def index():

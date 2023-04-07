@@ -60,7 +60,7 @@ class NekoSamaScraper:
         print("Debug: find_anime_in_neko_sama", title_from_anilist)
         data = self.get_json()
 
-        anime_name_anilist = " ".join([title for title in title_from_anilist if title is not None])
+        anime_name_anilist = " ".join([title for title in list(set(title_from_anilist)) if title is not None])
 
         try:
             # Get the anime title from neko_sama.json that is the closest to the title from anilist
@@ -69,8 +69,9 @@ class NekoSamaScraper:
             anime_name2 = difflib.get_close_matches(anime_name_anilist, [anime['title_romanji'] if anime['title_romanji'] else 'a' for anime in data], n=1, cutoff=0.6)
 
             list_of_final_anime_name = anime_name0 + anime_name1 + anime_name2
+            print(list_of_final_anime_name)
             anime_name = difflib.get_close_matches(anime_name_anilist, list_of_final_anime_name, n=1, cutoff=0.6)
-                                                                
+
         except Exception as e:
             logging.error(e)
             return None
