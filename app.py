@@ -6,7 +6,6 @@ from anilist.anilist_api import get_ids_by_name, retrive_anime, top_anime_by_tre
 from anime.anime import create_anime_object
 
 from scraping.neko_sama_scraping import NekoSamaScraper
-from scraping.anime_resistance_scraping import AnimeResistanceScraper
 
 app = Flask(__name__)
 urllib3.disable_warnings()
@@ -14,16 +13,15 @@ urllib3.disable_warnings()
 @app.route('/')
 def redirect():
     neko_sama = NekoSamaScraper("https://185.146.232.127")
-    anime_resistance = AnimeResistanceScraper("https://animeresistance.stream")
 
-    anime_main_page = neko_sama.scrap_main_page() | anime_resistance.scrap_main_page()
+    anime_main_page = neko_sama.scrap_main_page()
     
     return render_template('index.html', anime_main_page=anime_main_page)
 
 @app.route('/home')
 def index():
     neko_sama = NekoSamaScraper("https://185.146.232.127")
-    anime_resistance = AnimeResistanceScraper("https://animeresistance.stream")
+
 
     anime_main_page = neko_sama.scrap_main_page()
     
