@@ -25,7 +25,7 @@ def index():
     neko_sama = NekoSamaScraper("https://185.146.232.127")
     anime_resistance = AnimeResistanceScraper("https://animeresistance.stream")
 
-    anime_main_page = neko_sama.scrap_main_page() | anime_resistance.scrap_main_page()
+    anime_main_page = neko_sama.scrap_main_page()
     
     return render_template('index.html', anime_main_page=anime_main_page)
 
