@@ -11,140 +11,6 @@ a {
     color: rgb(114, 138, 161);
 }
 
-.results  {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-
-article {
-    display: flex;
-    flex-direction: column;
-    width: 15%;
-    text-align: center;
-}
-
-article > img {
-    margin: auto;
-    border-radius: 2%;
-}
-
-.header_wrapper{
-    position: relative;
-    width: 100%;
-    height: 500px;
-}
-
-.bannerImage {
-    width: 100%;
-    object-fit: cover;
-    filter: drop-shadow(0 0 0.75rem black);
-    height: 500px;
-
-    /* Only work for Chrome, Opera 15 and Safari 4 */
-    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
-    
-}
-
-.animeImage {
-    border-radius: 2px;
-    transform: translate(50%, -160%);
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
-}
-
-.title_desc {
-    background-color: rgb(21, 31, 46);
-    transform: translate(0%, -50%);
-    padding-bottom: 2rem;
-}
-
-.title_desc > .genres {
-    transform: translate(-25%, -30%);
-}
-
-.animeTitle {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-left: 20%;
-}
-
-.animeDesc {
-    font-size: 0.8rem;
-    margin-left: 20%;
-}
-
-.genresA {
-    font-size: 0.8rem;
-    margin-left: 20%;
-}
-
-
-.imageA {
-    box-shadow: 12px 12px 2px 1px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    height: 295px;
-    width: 215px;
-}
-
-.imageA18 {
-    filter: blur(0.8rem);
-}
-
-.imageA18:hover {
-    filter: blur(0);
-    transition: 0.5s;
-}
-
-.genres {
-    display: flex;
-    justify-content: center;
-}
-
-
-.anime_genre {
-    background: hsl(50,52%,75%);
-    border-radius: 10px;
-    color: hsl(42,37%,22%);
-    display: inline-block;
-    font-size: 1.2rem;
-    font-weight: 700;
-    margin-right: 11px;
-    padding: 0 12px;
-    text-transform: lowercase;
-}
-
-.episode {
-    margin: auto;
-    width: 46%;
-    transform: translateY(20%);
-}
-
-.episodes *{
-    border-radius: 5px;
-    background-color: rgb(21, 31, 46);
-    position: relative;
-}
-
-.ep_nav {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 0 1rem 0;
-}
-
-.ep_nav_link {
-    background: hsl(50,52%,75%);
-    border-radius: 10px;
-    color: hsl(42,37%,22%);
-    display: inline-block;
-    font-size: 1.2rem;
-    font-weight: 700;
-    margin-right: 11px;
-    padding: 0 12px;
-}
-
 #rechercher{
     width: 500px;
     height: 48px;
@@ -187,8 +53,7 @@ footer {
 }
 
 
-  
-hr {
+footer hr {
     border: none;
     border-top: 1px solid #ccc;
     margin: 20px auto;
@@ -199,4 +64,205 @@ footer img {
     width: 30px;
     height: 30px;
     margin: 10px;
+}
+
+
+.container {
+    max-width: 1520px;
+    padding-left: 100px;
+    padding-right: 100px;
+	margin: 0 auto;
+    min-width: 320px;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 100%;
+}
+
+.results {
+    display: grid;
+    grid-gap: 28px 30px;
+    grid-template-columns: repeat(auto-fill, 200px);
+    justify-content: space-between;
+}
+
+.coverimage {
+    border-radius: 2%;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+    z-index: 5;
+	height: 278px;
+	width: 195px;
+}
+
+article {
+    display: grid;
+    grid-template-rows: -webkit-min-content auto;
+    grid-template-rows: min-content auto;
+    position: relative;
+    width: 185px;
+}
+
+.title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    line-height: 21px;
+    margin-top: 10px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+.list-status[status=RELEASING] {
+    background: #2ecc71;
+    box-shadow: 0 0 5px rgb(123 213 85 / 80%);
+    opacity: 1;
+}
+
+.list-status[status=NOT_YET_RELEASED]{
+	background: #e74c3c;
+	box-shadow: 0 0 5px rgb(250 122 122 / 80%);
+	opacity: 1;
+}
+
+.list-status[status=FINISHED]{
+	background: #3ccde7;
+	box-shadow: 0 0 5px rgba(85, 172, 213, 0.8);
+	opacity: 1;
+}
+
+.circle {
+    border-radius: 50%;
+    color: #fff;
+    height: 15px;
+    width: 15px;
+	transform: translate(-40%, -25%);
+	position: absolute;
+	z-index: 10; /* Valeur de z-index supérieure */
+
+}
+
+.header {
+    background-color: rgb(21, 31, 46);
+}
+
+.banner {
+    width: 100%;
+    object-fit: cover;
+    filter: drop-shadow(0 0 0.75rem black);
+    max-height: 400px;
+	/* Only work for Chrome, Opera 15 and Safari 4 */
+	-webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+}
+
+.cover {
+    border-radius: 2%;
+    box-shadow: 0 0 29px rgba(0, 0, 0, 0.5);
+	margin-top: -100px;
+	margin-left: 200px;
+    position: relative;
+    z-index: 5;
+}
+
+.titleA{
+	padding-left: 25%;
+	margin-top: -200px;
+}
+
+.desc {
+	position: static;
+	padding-left: 25%;
+    font-size: 1rem;
+    line-height: 20px;
+	padding-bottom: 1px;
+	width: 70%;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+	text-align: justify;
+}
+
+.genres {
+	display: flex;
+	flex-wrap: wrap;
+	padding-left: 25%;
+    padding-bottom: 50px;
+}
+
+.genre {
+	background: hsl(50,52%,75%);
+    border-radius: 10px;
+    color: hsl(42,37%,22%);
+    display: inline-block;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-right: 11px;
+    padding: 0 12px;
+    text-transform: lowercase;
+}
+
+.lecteur {
+	padding-top: 20px;
+	padding-left: 25%;
+}
+
+.ep_num {
+	padding-left: 25%;
+}
+
+.ep_nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 1rem 0;
+	padding-left: 25%;
+	padding-right: 29.5%;
+	
+}
+
+.ep_nav_link {
+    background: hsl(50,52%,75%);	
+    border-radius: 10px;
+    color: hsl(42,37%,22%);
+    display: inline-block;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-right: 11px;
+    padding: 0 12px;
+}
+
+.episodes {
+	border-radius: 5px;
+	border: none;
+    background-color:rgb(0, 0, 0);
+	color: rgb(114, 138, 161);
+	font-size: 1.2rem;
+	padding: 10px;
+	position: relative;
+	left: 25%;
+}
+
+.recommendations{
+	padding-left: 23.8%;
+}
+
+.recommendations .results {
+    display: grid;
+    grid-gap: 28px 30px;
+    grid-template-columns: repeat(auto-fill, 130px);
+    justify-content: space-between;
+}
+
+.recommendations article img{
+	width: 130px;
+	height: 180px;
+}
+
+.recommendations article .title{
+	font-size: small;
+	max-width: 130px;
 }

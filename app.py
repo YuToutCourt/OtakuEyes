@@ -2,7 +2,7 @@ import urllib3
 
 from flask import Flask, render_template, request
 
-from anilist.anilist_api import get_ids_by_name, retrive_anime, top_anime_by_trends, top_anime_by_popularity, top_anime_this_season, get_current_season
+from anilist.anilist_api import get_ids_by_name, retrive_anime, top_anime_by_trends, top_anime_by_popularity, top_anime_this_season, get_current_season, get_recommendations_sorted_by_rating
 from anime.anime import create_anime_object
 
 from scraping.neko_sama_scraping import NekoSamaScraper
@@ -38,6 +38,9 @@ def browse():
 @app.route('/anime/<id>/<ep>')
 def anime(id, ep):
     anime_data = retrive_anime(id)
+    recommended_animes = [create_anime_object(anime['mediaRecommendation']) 
+                          for anime in get_recommendations_sorted_by_rating(id)['data']['Media']['recommendations']['nodes'][:5]
+                          ]
 
     anime = create_anime_object(anime_data['data']['Media'])
 
@@ -57,7 +60,7 @@ def anime(id, ep):
 
     nb_episodes = neko_sama_scrapper.get_nb_episodes(anime_data_neko, id)
 
-    return render_template('anime.html', id=id, ep=int(ep), anime=anime, urls_video=urls_video, nb_episodes=nb_episodes)
+    return render_template('anime.html', id=id, ep=int(ep), anime=anime, urls_video=urls_video, nb_episodes=nb_episodes, recommendations=recommended_animes)
 
 
 @app.route('/top_anime')
