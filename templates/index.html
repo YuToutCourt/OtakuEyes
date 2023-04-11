@@ -14,6 +14,7 @@
     {% for anime in anime_main_page %}
         <div class="results">
             <article>
+                <div status="{{ anime.status }}" class="list-status circle"></div>
                 <a href="anime/{{anime.id}}/{{anime.episode}}">
 					<img src="{{ anime.image_url }}" class="coverimage">	
 				</a>

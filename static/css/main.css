@@ -52,6 +52,29 @@ footer {
     margin-top: 50px;
 }
 
+.legend {
+    display: flex;
+    justify-content: space-around;
+}
+
+.information {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+}
+
+.information > p {
+    margin: 0 10px;
+}
+
+.legend .circle{
+    border-radius: 50%;
+    color: #fff;
+    height: 15px;
+    width: 15px;
+    display: flex;
+    justify-content: center;
+}
 
 footer hr {
     border: none;
@@ -133,7 +156,7 @@ article {
 	opacity: 1;
 }
 
-.circle {
+.results .circle {
     border-radius: 50%;
     color: #fff;
     height: 15px;
@@ -141,7 +164,6 @@ article {
 	transform: translate(-40%, -25%);
 	position: absolute;
 	z-index: 10; /* Valeur de z-index supérieure */
-
 }
 
 .header {

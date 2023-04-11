@@ -47,10 +47,9 @@ def anime(id, ep):
     anime_name_list = [anime.title['english'], anime.title['romaji']]
 
     neko_sama_scrapper = NekoSamaScraper("https://www.neko-sama.fr")
-    print(neko_sama_scrapper.url)
 
     anime_data_neko = neko_sama_scrapper.find_anime_in_neko_sama(anime_name_list)
-    print(anime_data_neko)
+
     if anime_data_neko is None:
         return render_template('anime.html', id=id, ep=-1, anime=anime)
 

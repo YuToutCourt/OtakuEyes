@@ -34,6 +34,21 @@
             </nav>
         </header>
         {% block body %}{% endblock %}
+        <br>
+        <div class="legend">
+            <div class="information">
+                <div status="RELEASING" class="list-status circle"></div>
+                <p>Anime currently airing</p>
+            </div>
+            <div class="information">
+                <div status="NOT_YET_RELEASED" class="list-status circle"></div>
+                <p>Anime not yet released</p>
+            </div>
+            <div class="information">
+                <div status="FINISHED" class="list-status circle"></div>
+                <p>Anime finished</p>
+            </div>
+        </div>
         <footer>
             <hr>
             <a href="https://github.com/YuToutCourt/OtakuEyes-Flask"><img src="{{ url_for('static', filename='image/github.png') }}" alt="GitHub logo"></a>
