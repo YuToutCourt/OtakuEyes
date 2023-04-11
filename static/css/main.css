@@ -178,3 +178,25 @@ header{
     background-color: rgb(29, 47, 70);
     
 }
+
+footer {
+    background-color:rgb(17, 22, 29);
+    color:rgb(114, 138, 161);
+    text-align: center;
+    margin-top: 50px;
+}
+
+
+  
+hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 20px auto;
+    width: 80%;
+}
+  
+footer img {
+    width: 30px;
+    height: 30px;
+    margin: 10px;
+}
