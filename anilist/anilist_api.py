@@ -9,7 +9,6 @@ URL = 'https://graphql.anilist.co'
 def get_current_season():
     return SEASON[(datetime.now().month -1) // 3]
 
-
 def top_anime_by_trends(page=1, per_page=6, sort=['TRENDING_DESC']):
     query = '''
     query ($page: Int, $perPage: Int, $sort: [MediaSort]) {
@@ -215,7 +214,7 @@ def retrive_anime(id):
           status
           description
           bannerImage
-          isAdult
+          isAdult                    
       }}
     }}
     '''
@@ -235,6 +234,42 @@ def get_next_ep(id):
             }
         }
     }
+    '''
+
+    variables = { 'id': id }
+
+    response = requests.post(URL, json={'query': query, 'variables': variables})
+
+    return response.json()
+
+def get_recommendations_sorted_by_rating(id):
+    query = '''
+        query ($id: Int!) {
+            Media (id: $id) {
+                recommendations (sort: RATING_DESC) {
+                    nodes {
+                        rating
+                        mediaRecommendation {
+                            id
+                            title {
+                              romaji
+                              english
+                              native
+                            }
+                            coverImage {
+                                large
+                                color
+                            }
+                              genres
+                              status
+                              description
+                              bannerImage
+                              isAdult    
+                        }
+                    }
+                }
+            }
+        }
     '''
 
     variables = { 'id': id }

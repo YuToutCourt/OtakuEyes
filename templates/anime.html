@@ -19,68 +19,97 @@
 
     <div class="header_wrapper">
         {% if anime.banner_image %}
-            <img src="{{anime.banner_image}}" alt="banner image" class="bannerImage">
+            <img src="{{anime.banner_image}}" alt="banner image" class="banner">
         {% else %}
-            <img src="https://preview.redd.it/dtljzwihuh861.jpg?width=960&crop=smart&auto=webp&s=afcfc996c8cff92d665f1219beeebd8744ab84f2" alt="banner image" class="bannerImage">
+            <img src="https://preview.redd.it/dtljzwihuh861.jpg?width=960&crop=smart&auto=webp&s=afcfc996c8cff92d665f1219beeebd8744ab84f2" alt="banner image" class="banner">
 
         {% endif %}
+    </div>
 
-        <div class="title_desc">
+        <div class="header">
+            <img src="{{anime.image_url}}" class="cover">
+
             {% if anime.title['english'] %}
-                <p class="animeTitle">{{anime.title['english']}}</p>
+                <h3 class="titleA">{{anime.title['english']}}</h3>
             {% else %}
-                <p class="animeTitle">{{anime.title['romaji']}}</p>
+                <h3 class="titleA">{{anime.title['romaji']}}</h3>
             {% endif %}
-            <p class="animeDesc">{{anime.description}}</p>
+
+            <p class="desc">{{anime.description}}</p>
             <div class="genres">
                 {% for genre in anime.genres %}
-                    <p class="anime_genre">{{ genre }}</p>
+                    <p class="genre">{{ genre }}</p>
                 {% endfor %}
             </div>
         </div>
 
-        <img src="{{anime.image_url}}" alt="anime image" class="animeImage">
-
     </div>
     
-    {% if ep == -1 %}
     <div class="episode">
-        <h3>Pas d'épisode trouver</h3>
-        <img src="{{ url_for('static', filename='image/sorry.gif') }}" alt="sorry" class="sorry">
-    </div>
+    {% if ep == -1 %}
+        <h3 class="lecteur">Pas d'épisode trouver</h3>
+        <img src="{{ url_for('static', filename='image/sorry.gif') }}" alt="sorry" class="lecteur">
 
     {% else %}
 
-        <div class="episode">
+        <p class="ep_num">Épisode {{ep}}</p>
+        
+        <div class="ep_nav">
+            {% if ep > 1 %}
+                <a href="/anime/{{anime.id}}/{{ep-1}}" class="ep_nav_link">< Épisode précédent</a>
+            {% endif %}
+            {% if ep < nb_episodes %}
+                <a href="/anime/{{anime.id}}/{{ep+1}}" class="ep_nav_link">Épisode suivant ></a>
+            {% endif %}
+        </div>
 
-            <p class="ep_num">Épisode {{ep}}</p>
-            
-            <div class="ep_nav">
-                {% if ep > 1 %}
-                    <a href="/anime/{{anime.id}}/{{ep-1}}" class="ep_nav_link">< Épisode précédent</a>
-                {% endif %}
-                {% if ep < nb_episodes %}
-                    <a href="/anime/{{anime.id}}/{{ep+1}}" class="ep_nav_link">Épisode suivant ></a>
-                {% endif %}
-            </div>
-
-            <div class="ep_list">
-                <select name="episodes" id="episodes" onchange="window.location.href=this.value">
-                    {% for i in range(1, nb_episodes+1) %}
-                        <option value="/anime/{{anime.id}}/{{i}}" {% if i == ep %}selected{% endif %}>Épisode {{i}}</option>
-                    {% endfor %}
-                </select>
-            </div>
+        <select name="episodes" class="episodes" onchange="window.location.href=this.value">
+            {% for i in range(1, nb_episodes+1) %}
+                <option value="/anime/{{anime.id}}/{{i}}" {% if i == ep %}selected{% endif %}>Épisode {{i}}</option>
+            {% endfor %}
+        </select>
 
 
 
+        <div class="lecteur">
             {% for url_video in urls_video %}
                 <iframe src="{{url_video}}" frameborder="0" allowfullscreen width="840" height="500"></iframe>
+            {% endfor %}
+        </div>
+
+    </div>
+
+    {% endif %}
+
+    <div class="recommendations">
+        {% if anime.title['english'] %}
+            <h6>Recommendations because you watch {{anime.title['english']}}</h6>
+        {% else %}
+            <h6>Recommendations because you watch {{anime.title['romaji']}}</h6>
+        {% endif %}
+
+        <div class="results">
+
+            {% for r_anime in recommendations %}
+                <article>
+                    <a href="/anime/{{r_anime.id}}/1">
+                        <div status="{{ r_anime.status }}" class="list-status circle"></div>
+                        <img src="{{ r_anime.image_url }}" class="coverimage">	
+                    </a>
+                    <a href="/anime/{{r_anime.id}}/1" class="title">
+                    {% if r_anime.title['english'] %}
+                        {{r_anime.title['english']}} 
+                    {% else %}
+                        {{r_anime.title['romaji']}} 
+                    {% endif %}
+                    </a>
+                </article>
             {% endfor %}
 
         </div>
 
-    {% endif %}
+    </div>
+
 
 </div>
 

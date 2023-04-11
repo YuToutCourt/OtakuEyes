@@ -7,38 +7,25 @@
 
 
 {% block body %}
-
-<div class="results">
-{% for anime in animes %}
-
-    <article class="card">
-
-        <div class="genres">
-            {% for genre in anime.genres %}
-                <p class="anime_genre">{{ genre }}</p>
-            {% endfor %}
-        </div>
-        
-        {% if anime.is_adult %}
-            <a href="anime/{{anime.id}}/1" class="anime_url">
-                <img src="{{ anime.image_url }}" alt="anime image" class="imageA18">
-            </a>
-        {% else %}
-            <a href="anime/{{anime.id}}/1" class="anime_url">
-                <img src="{{ anime.image_url }}" alt="anime image" class="imageA">
-            </a>
-        {% endif %}
-
-
-
+<br>
+<div class="container">
+    <div class="results">
+    {% for anime in animes %}
+    <article>
+        <a href="anime/{{anime.id}}/1">
+            <div status="{{ anime.status }}" class="list-status circle"></div>
+            <img src="{{ anime.image_url }}" class="coverimage">	
+        </a>
+        <a href="anime/{{anime.id}}/1" class="title">
         {% if anime.title['english'] %}
-         <h5 class="anime_title">{{anime.title['english']}}</h5>
+            {{anime.title['english']}} 
         {% else %}
-            <h5 class="anime_title">{{anime.title['romaji']}}</h5>
+            {{anime.title['romaji']}} 
         {% endif %}
-
+        </a>
     </article>
-{% endfor %}
+    {% endfor %}
+    </div>
 </div>
 
 
