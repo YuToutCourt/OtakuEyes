@@ -37,7 +37,7 @@ def create_anime_object(anime_data: dict) :
     title = anime_data.get('title')
     image_url = anime_data.get('coverImage').get('large')
     description = anime_data.get('description')
-    genres = anime_data.get('genres')[:2]
+    genres = anime_data.get('genres')
     color = anime_data.get('coverImage').get('color')
     status = anime_data.get('status')
     is_adult = anime_data.get('isAdult')
