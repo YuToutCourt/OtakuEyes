@@ -6,5 +6,5 @@ Exemple :
 
 Add fav anime to the list of anime you have seen
 Add account like with anilist to save your fav anime
-Add random anime button
+Add random anime button (chercher une bonne idée de comment faire sans use le json)
 Add easter egg on the website
