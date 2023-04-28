@@ -80,7 +80,7 @@
     </div>
 
     {% endif %}
-
+    {% if recommendations != [] %}
     <div class="recommendations">
         {% if anime.title['english'] %}
             <h6>Recommendations because you watch {{anime.title['english']}}</h6>
@@ -109,6 +109,7 @@
         </div>
 
     </div>
+    {% endif %}
 
 
 </div>

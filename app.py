@@ -7,6 +7,7 @@ from anime.anime import create_anime_object
 
 from scraping.neko_sama_scraping import NekoSamaScraper
 
+
 app = Flask(__name__)
 urllib3.disable_warnings()
 

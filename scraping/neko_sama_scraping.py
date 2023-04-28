@@ -1,4 +1,3 @@
-import logging
 import re
 import json
 import difflib
@@ -58,6 +57,9 @@ class NekoSamaScraper:
     def find_anime_in_neko_sama(self, title_from_anilist:list[str]):
         """Return the anime from neko_sama.json that is the closest to the title from anilist"""
         data = self.get_json()
+        
+        title_from_anilist = [title.lower() for title in title_from_anilist if title is not None]
+        print(f"Anilist title : {title_from_anilist}")
 
         anime_names = set()
         for anime in data:
@@ -66,9 +68,9 @@ class NekoSamaScraper:
             romanji_name = anime['title_romanji'].lower() if anime['title_romanji'] else 'a'
 
             for name in title_from_anilist:
-                anime_name0 = difflib.get_close_matches(name.lower(), [english_name], n=1, cutoff=0.6)
-                anime_name1 = difflib.get_close_matches(name.lower(), [title_name], n=1, cutoff=0.6)
-                anime_name2 = difflib.get_close_matches(name.lower(), [romanji_name], n=1, cutoff=0.6)
+                anime_name0 = difflib.get_close_matches(name, [english_name], n=1, cutoff=0.6)
+                anime_name1 = difflib.get_close_matches(name, [title_name], n=1, cutoff=0.6)
+                anime_name2 = difflib.get_close_matches(name, [romanji_name], n=1, cutoff=0.6)
 
                 if anime_name0 : anime_names.add(anime_name0[0])
                 if anime_name1 : anime_names.add(anime_name1[0])
@@ -79,7 +81,7 @@ class NekoSamaScraper:
 
         anime_names2 = set()
         for name in title_from_anilist:
-            anime_name = difflib.get_close_matches(name.lower(), anime_names, n=1, cutoff=0.6)
+            anime_name = difflib.get_close_matches(name, anime_names, n=1, cutoff=0.6)
 
             if anime_name : anime_names2.add(anime_name[0])
 
