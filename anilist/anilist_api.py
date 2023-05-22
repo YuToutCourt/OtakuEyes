@@ -16,6 +16,7 @@ def get_random_anime():
         }
         media (type: $type, isAdult: $isAdult) {
           id
+          popularity
           title {
             romaji
           }
@@ -28,7 +29,7 @@ def get_random_anime():
         'type': 'ANIME',
         'isAdult': False,
         'perPage': 50, # 50 is the max
-        'page': random.randint(1, 344) # 344 is the last page
+        'page': random.randint(1, 344)# 344 is the last page
     }
 
     response = requests.post(URL, json={'query': query, 'variables': variables})
@@ -36,6 +37,12 @@ def get_random_anime():
     anime_list = data['data']['Page']['media']
 
     random_anime = random.choice(anime_list)
+    print(random_anime)
+
+    popularity = random_anime['popularity']
+    if popularity < 1000:
+        return get_random_anime()
+
     return random_anime['id']
 
 def get_current_season():
