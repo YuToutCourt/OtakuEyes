@@ -1,4 +1,5 @@
 import urllib3
+import requests
 
 from flask import Flask, render_template, request
 
@@ -10,6 +11,7 @@ from scraping.neko_sama_scraping import NekoSamaScraper
 
 app = Flask(__name__)
 urllib3.disable_warnings()
+requests.packages.urllib3.util.connection.HAS_IPV6 = False
 
 @app.route('/')
 def redirect():
