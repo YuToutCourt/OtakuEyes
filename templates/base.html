@@ -24,6 +24,16 @@
                         <a href="/top_anime" > Top Anime </a>
                     </h6>
 
+                    <input type="button" id="random_anime" value="Random anime">
+
+                    <script type="text/javascript">
+                    document.querySelector("#random_anime").addEventListener("click", (e) => {
+                        fetch("/api/random_anime", {method: "GET"})
+                        .then((response) => {return response.json()})
+                        .then((data) => window.location.assign(`/anime/${data.id}/1`));
+                    });
+                    </script>
+
                     <label for="rechercher">
                         <input type="text" name="search" placeholder="Rechercher..." id="rechercher">
                         <input type="image" src="{{ url_for('static', filename='image/loupe.png') }}"

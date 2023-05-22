@@ -2,7 +2,7 @@ import urllib3
 
 from flask import Flask, render_template, request
 
-from anilist.anilist_api import get_ids_by_name, retrive_anime, top_anime_by_trends, top_anime_by_popularity, top_anime_this_season, get_current_season, get_recommendations_sorted_by_rating
+from anilist.anilist_api import get_ids_by_name, retrive_anime, top_anime_by_trends, top_anime_by_popularity, top_anime_this_season, get_current_season, get_recommendations_sorted_by_rating, get_random_anime
 from anime.anime import create_anime_object
 
 from scraping.neko_sama_scraping import NekoSamaScraper
@@ -73,6 +73,14 @@ def top_anime():
 
     return render_template('top_anime.html', trending_now=trending_now, most_popular=most_popular, 
                             this_season=this_season, current_season=current_season)
+
+#background process happening without any refreshing
+@app.route('/api/random_anime')
+def random_anime():
+    id = get_random_anime()
+    print(id)
+    return {'id': id}, 200
+
 
 if __name__ == '__main__':
     app.run(debug=True)

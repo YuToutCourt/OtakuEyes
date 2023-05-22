@@ -1,3 +1,4 @@
+import random
 import requests
 
 from datetime import datetime
@@ -5,6 +6,37 @@ from datetime import datetime
 
 SEASON = ['WINTER', 'SPRING', 'SUMMER', 'FALL']
 URL = 'https://graphql.anilist.co'
+
+def get_random_anime():
+    query = '''
+    query ($type: MediaType, $isAdult: Boolean, $perPage: Int, $page: Int) {
+      Page (perPage: $perPage, page: $page) {
+        pageInfo {
+          perPage
+        }
+        media (type: $type, isAdult: $isAdult) {
+          id
+          title {
+            romaji
+          }
+        }
+      }
+    }
+    '''
+
+    variables = {
+        'type': 'ANIME',
+        'isAdult': False,
+        'perPage': 50, # 50 is the max
+        'page': random.randint(1, 344) # 344 is the last page
+    }
+
+    response = requests.post(URL, json={'query': query, 'variables': variables})
+    data = response.json()
+    anime_list = data['data']['Page']['media']
+
+    random_anime = random.choice(anime_list)
+    return random_anime['id']
 
 def get_current_season():
     return SEASON[(datetime.now().month -1) // 3]
