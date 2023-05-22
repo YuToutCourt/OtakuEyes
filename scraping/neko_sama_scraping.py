@@ -68,9 +68,9 @@ class NekoSamaScraper:
             romanji_name = anime['title_romanji'].lower() if anime['title_romanji'] else 'a'
 
             for name in title_from_anilist:
-                anime_name0 = difflib.get_close_matches(name, [english_name], n=1, cutoff=0.6)
-                anime_name1 = difflib.get_close_matches(name, [title_name], n=1, cutoff=0.6)
-                anime_name2 = difflib.get_close_matches(name, [romanji_name], n=1, cutoff=0.6)
+                anime_name0 = difflib.get_close_matches(name, [english_name], n=1, cutoff=0.8)
+                anime_name1 = difflib.get_close_matches(name, [title_name], n=1, cutoff=0.8)
+                anime_name2 = difflib.get_close_matches(name, [romanji_name], n=1, cutoff=0.8)
 
                 if anime_name0 : anime_names.add(anime_name0[0])
                 if anime_name1 : anime_names.add(anime_name1[0])
