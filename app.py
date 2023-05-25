@@ -58,7 +58,7 @@ def anime(id:str, ep:str, lang:str):
 
     urls_video = neko_sama_scrapper.get_video_url_of(anime_data_neko, int(ep), lang)
     if urls_video is None:
-        return render_template('anime.html', id=id, ep=-1, lang=lang ,anime=anime)
+        return render_template('anime.html', id=id, ep=-1, lang=lang, anime=anime)
 
     nb_episodes = neko_sama_scrapper.get_nb_episodes(anime_data_neko, id)
 
