@@ -119,10 +119,10 @@ class NekoSamaScraper:
         
         return ep.get('episode') - 1 
 
-    def get_video_url_of(self, anime:dict, episode:int):
+    def get_video_url_of(self, anime:dict, episode:int, lang:str):
         """Return the url of the episode from neko_sama.json"""
 
-        url_episode = self.get_link_ep_anime(anime, episode)
+        url_episode = self.get_link_ep_anime(anime, episode, lang)
         print(url_episode)
         r = requests.get(url_episode, verify=False)
         soup = BeautifulSoup(r.text, 'lxml')
@@ -150,16 +150,18 @@ class NekoSamaScraper:
 
         return urls
 
-    def get_link_ep_anime(self, anime:dict, episode:int):
+    def get_link_ep_anime(self, anime:dict, episode:int, lang:str):
         """Return all the episodes from neko_sama.json"""
-
+        
         # Build url episode
         tmp_url = anime['url'].split('/')[-1].split('-')
         end_url = tmp_url[-1].split('_')
-        end_url.insert(1,f'-{str(episode).zfill(2)}_')
+        end_url.insert(1,f'-{str(abs(episode)).zfill(2)}_')
         tmp_url[-1] = ''.join(end_url)
-        print(tmp_url)
         url = '-'.join(tmp_url)
+
+        if lang == 'vf':
+            url = url.replace('vostfr', 'vf')
 
         return "https://185.146.232.127/anime/episode/" + url
 

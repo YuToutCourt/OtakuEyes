@@ -44,7 +44,12 @@
         </div>
 
     </div>
-    
+
+    <select name="lang" class="langue" onchange="window.location.href=this.value">
+        <option value="/anime/{{anime.id}}/{{ep|abs}}/vostfr" {% if lang == "vostfr" %}selected{% endif %}>VOSTFR</option>
+        <option value="/anime/{{anime.id}}/{{ep|abs}}/vf" {% if lang == "vf" %}selected{% endif %}>VF</option>
+    </select>
+
     <div class="episode">
     {% if ep == -1 %}
         <h3 class="lecteur">Pas d'épisode trouver</h3>
@@ -56,19 +61,18 @@
         
         <div class="ep_nav">
             {% if ep > 1 %}
-                <a href="/anime/{{anime.id}}/{{ep-1}}" class="ep_nav_link">< Épisode précédent</a>
+                <a href="/anime/{{anime.id}}/{{ep-1}}/{{lang}}" class="ep_nav_link">< Épisode précédent</a>
             {% endif %}
             {% if ep < nb_episodes %}
-                <a href="/anime/{{anime.id}}/{{ep+1}}" class="ep_nav_link">Épisode suivant ></a>
+                <a href="/anime/{{anime.id}}/{{ep+1}}/{{lang}}" class="ep_nav_link">Épisode suivant ></a>
             {% endif %}
         </div>
 
-        <select name="episodes" class="episodes" onchange="window.location.href=this.value">
-            {% for i in range(1, nb_episodes+1) %}
-                <option value="/anime/{{anime.id}}/{{i}}" {% if i == ep %}selected{% endif %}>Épisode {{i}}</option>
-            {% endfor %}
-        </select>
-
+            <select name="episodes" class="episodes" onchange="window.location.href=this.value">
+                {% for i in range(1, nb_episodes+1) %}
+                    <option value="/anime/{{anime.id}}/{{i}}/{{lang}}" {% if i == ep %}selected{% endif %}>Épisode {{i}}</option>
+                {% endfor %}
+            </select>
 
 
         <div class="lecteur">
@@ -92,11 +96,11 @@
 
             {% for r_anime in recommendations %}
                 <article>
-                    <a href="/anime/{{r_anime.id}}/1">
+                    <a href="/anime/{{r_anime.id}}/1/vostfr">
                         <div status="{{ r_anime.status }}" class="list-status circle"></div>
                         <img src="{{ r_anime.image_url }}" class="coverimage">	
                     </a>
-                    <a href="/anime/{{r_anime.id}}/1" class="title">
+                    <a href="/anime/{{r_anime.id}}/1/vostfr" class="title">
                     {% if r_anime.title['english'] %}
                         {{r_anime.title['english']}} 
                     {% else %}

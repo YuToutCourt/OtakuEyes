@@ -12,11 +12,11 @@
     <div class="results">
     {% for anime in animes %}
     <article>
-        <a href="anime/{{anime.id}}/1">
+        <a href="anime/{{anime.id}}/1/vostfr">
             <div status="{{ anime.status }}" class="list-status circle"></div>
             <img src="{{ anime.image_url }}" class="coverimage">	
         </a>
-        <a href="anime/{{anime.id}}/1" class="title">
+        <a href="anime/{{anime.id}}/1/vostfr" class="title">
         {% if anime.title['english'] %}
             {{anime.title['english']}} 
         {% else %}

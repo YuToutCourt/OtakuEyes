@@ -30,7 +30,7 @@
                     document.querySelector("#random_anime").addEventListener("click", (e) => {
                         fetch("/api/random_anime", {method: "GET"})
                         .then((response) => {return response.json()})
-                        .then((data) => window.location.assign(`/anime/${data.id}/1`));
+                        .then((data) => window.location.assign(`/anime/${data.id}/1/vostfr`));
                     });
                     </script>
 

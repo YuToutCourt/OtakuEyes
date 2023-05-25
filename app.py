@@ -38,8 +38,8 @@ def browse():
 
     return render_template('browse.html', animes=animes)
 
-@app.route('/anime/<id>/<ep>')
-def anime(id, ep):
+@app.route('/anime/<id>/<ep>/<lang>')
+def anime(id:str, ep:str, lang:str):
     anime_data = retrive_anime(id)
     recommended_animes = [create_anime_object(anime['mediaRecommendation']) 
                           for anime in get_recommendations_sorted_by_rating(id)['data']['Media']['recommendations']['nodes'][:5]
@@ -54,15 +54,15 @@ def anime(id, ep):
     anime_data_neko = neko_sama_scrapper.find_anime_in_neko_sama(anime_name_list)
 
     if anime_data_neko is None:
-        return render_template('anime.html', id=id, ep=-1, anime=anime)
+        return render_template('anime.html', id=id, ep=-1, lang=lang, anime=anime)
 
-    urls_video = neko_sama_scrapper.get_video_url_of(anime_data_neko, ep)
+    urls_video = neko_sama_scrapper.get_video_url_of(anime_data_neko, int(ep), lang)
     if urls_video is None:
-        return render_template('anime.html', id=id, ep=-1, anime=anime)
+        return render_template('anime.html', id=id, ep=-1, lang=lang ,anime=anime)
 
     nb_episodes = neko_sama_scrapper.get_nb_episodes(anime_data_neko, id)
 
-    return render_template('anime.html', id=id, ep=int(ep), anime=anime, urls_video=urls_video, nb_episodes=nb_episodes, recommendations=recommended_animes)
+    return render_template('anime.html', id=id, ep=int(ep), lang=lang, anime=anime, urls_video=urls_video, nb_episodes=nb_episodes, recommendations=recommended_animes)
 
 
 @app.route('/top_anime')

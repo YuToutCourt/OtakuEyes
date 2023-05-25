@@ -15,10 +15,10 @@
         <div class="results">
             <article>
                 <div status="{{ anime.status }}" class="list-status circle"></div>
-                <a href="anime/{{anime.id}}/{{anime.episode}}">
+                <a href="anime/{{anime.id}}/{{anime.episode}}/vostfr">
 					<img src="{{ anime.image_url }}" class="coverimage">	
 				</a>
-				<a href="anime/{{anime.id}}/{{anime.episode}}" class="title">
+				<a href="anime/{{anime.id}}/{{anime.episode}}/vostfr" class="title">
                 {% if anime.title['english'] %}
                     {{anime.title['english']}} - Ep {{anime.episode}}
                 {% else %}
