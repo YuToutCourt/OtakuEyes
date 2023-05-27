@@ -314,3 +314,13 @@ article {
 #random_anime:hover {
     background-color: rgb(47, 131, 177);
 }
+
+.about {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.about p {
+    margin: 10px;
+}
