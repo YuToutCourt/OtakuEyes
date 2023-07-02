@@ -25,15 +25,7 @@
                     </h6>
 
                     <input type="button" id="random_anime" value="Random anime">
-
-                    <script type="text/javascript">
-                    document.querySelector("#random_anime").addEventListener("click", (e) => {
-                        fetch("/api/random_anime", {method: "GET"})
-                        .then((response) => {return response.json()})
-                        .then((data) => window.location.assign(`/anime/${data.id}/1/vostfr`));
-                    });
-                    </script>
-
+                                        
                     <label for="rechercher">
                         <input type="text" name="search" placeholder="Rechercher..." id="rechercher">
                         <input type="image" src="{{ url_for('static', filename='image/loupe.png') }}"
@@ -43,6 +35,7 @@
             </form>
             </nav>
         </header>
+        <img id="loading_indicator" src="{{ url_for('static', filename='image/searching.gif') }}" alt="loading" class="hidden">
         {% block body %}{% endblock %}
         <br>
         <div class="legend">
@@ -69,6 +62,24 @@
             </div>
         </footer>
     </body>
+    <script type="text/javascript">
+        document.querySelector("#random_anime").addEventListener("click", (e) => {
+          // Afficher l'indication de chargement
+          document.querySelector("#loading_indicator").style.display = "block";
+      
+          fetch("/api/random_anime", { method: "GET" })
+            .then((response) => {
+              return response.json();
+            })
+            .then((data) => {
+              // Masquer l'indication de chargement une fois la réponse reçue
+              document.querySelector("#loading_indicator").classList.add("hidden");
+      
+              window.location.assign(`/anime/${data.id}/1/vostfr`);
+            });
+        });
+      </script>
+
 </html>
 
 

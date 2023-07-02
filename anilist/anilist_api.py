@@ -8,6 +8,9 @@ SEASON = ['WINTER', 'SPRING', 'SUMMER', 'FALL']
 URL = 'https://graphql.anilist.co'
 
 def get_random_anime():
+    from scraping.neko_sama_scraping import NekoSamaScraper
+    neko_sama = NekoSamaScraper("https://185.146.232.127")
+
     query = '''
     query ($type: MediaType, $isAdult: Boolean, $perPage: Int, $page: Int) {
       Page (perPage: $perPage, page: $page) {
@@ -19,6 +22,8 @@ def get_random_anime():
           popularity
           title {
             romaji
+            english
+            native
           }
         }
       }
@@ -38,6 +43,11 @@ def get_random_anime():
 
     random_anime = random.choice(anime_list)
     print(random_anime)
+
+    title = [random_anime['title']['romaji'], random_anime['title']['english'], random_anime['title']['native']]
+
+    if neko_sama.find_anime_in_neko_sama(title) is None:
+        return get_random_anime()
 
     popularity = random_anime['popularity']
     if popularity < 1000:

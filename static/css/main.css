@@ -324,3 +324,13 @@ article {
 .about p {
     margin: 10px;
 }
+
+.hidden {
+    display: none;
+    z-index: 9999;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
