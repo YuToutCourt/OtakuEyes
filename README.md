@@ -1,3 +1,7 @@
+[![Contributors][contributors-shield]][contributors-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+
 ![](https://raw.githubusercontent.com/Wongt8/OtakuEyesGitV/main/Resources/OtakuEyesLogo.png "Banner")
 
 # OtakuEyes-Flask
@@ -29,3 +33,10 @@ python3 app.py
 ----
 
 Feel free to give your opinion about the application and on what it can be improved
+
+[contributors-shield]: https://img.shields.io/github/contributors/YuToutCourt/OtakuEyes-Flask?style=for-the-badge
+[contributors-url]: https://github.com/YuToutCourt/OtakuEyes-Flask/graphs/contributors
+[stars-shield]: https://img.shields.io/github/stars/YuToutCourt/OtakuEyes-Flask.svg?style=for-the-badge
+[stars-url]: https://github.com/YuToutCourt/OtakuEyes-Flask/stargazers
+[issues-shield]: https://img.shields.io/github/issues/YuToutCourt/OtakuEyes-Flask.svg?style=for-the-badge
+[issues-url]: https://github.com/YuToutCourt/OtakuEyes-Flask/issues
