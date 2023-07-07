@@ -2,7 +2,7 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 
-![](https://raw.githubusercontent.com/Wongt8/OtakuEyesGitV/main/Resources/OtakuEyesLogo.png "Banner")
+![Alt text](static/image/OtakuEyesLogo.png)
 
 # OtakuEyes-Flask
 
