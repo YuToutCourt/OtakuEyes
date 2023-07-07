@@ -53,6 +53,41 @@ class NekoSamaScraper:
         with open('neko_sama.json', 'w') as f:
             json.dump(r.json(), f, indent=4)
         return r.json()
+    
+
+    def filter_anime(self, title_from_anilist:list[str], data, cutoff:int):
+        anime_names = set()
+        for anime in data:
+            english_name = anime['title_english'].lower() if anime['title_english'] else 'a'
+            title_name = anime['title'].lower() if anime['title'] else 'a'
+            romanji_name = anime['title_romanji'].lower() if anime['title_romanji'] else 'a'
+
+            for name in title_from_anilist:
+                anime_name0 = difflib.get_close_matches(name, [english_name], n=1, cutoff=cutoff)
+                anime_name1 = difflib.get_close_matches(name, [title_name], n=1, cutoff=cutoff)
+                anime_name2 = difflib.get_close_matches(name, [romanji_name], n=1, cutoff=cutoff)
+
+                if anime_name0 : anime_names.add(anime_name0[0])
+                if anime_name1 : anime_names.add(anime_name1[0])
+                if anime_name2 : anime_names.add(anime_name2[0])
+
+        # For debug
+        print("First filtre:", anime_names, cutoff)
+
+        anime_names2 = set()
+        for name in title_from_anilist:
+            anime_name = difflib.get_close_matches(name, anime_names, n=1, cutoff=cutoff)
+
+            if anime_name : anime_names2.add(anime_name[0])
+
+        # For debug
+        print("Second filtre:", anime_names2, cutoff)
+
+        if len(anime_names2) > 1 and cutoff+0.05 < 1:
+            return self.filter_anime(title_from_anilist, data, cutoff+0.05)
+        else:
+            return anime_names2.pop()
+
 
     def find_anime_in_neko_sama(self, title_from_anilist:list[str]):
         """Return the anime from neko_sama.json that is the closest to the title from anilist"""
@@ -61,32 +96,8 @@ class NekoSamaScraper:
         title_from_anilist = [title.lower() for title in title_from_anilist if title is not None]
         print(f"Anilist title : {title_from_anilist}")
 
-        anime_names = set()
-        for anime in data:
-            english_name = anime['title_english'].lower() if anime['title_english'] else 'a'
-            title_name = anime['title'].lower() if anime['title'] else 'a'
-            romanji_name = anime['title_romanji'].lower() if anime['title_romanji'] else 'a'
-
-            for name in title_from_anilist:
-                anime_name0 = difflib.get_close_matches(name, [english_name], n=1, cutoff=0.8)
-                anime_name1 = difflib.get_close_matches(name, [title_name], n=1, cutoff=0.8)
-                anime_name2 = difflib.get_close_matches(name, [romanji_name], n=1, cutoff=0.8)
-
-                if anime_name0 : anime_names.add(anime_name0[0])
-                if anime_name1 : anime_names.add(anime_name1[0])
-                if anime_name2 : anime_names.add(anime_name2[0])
-
-        # For debug
-        print("First filtre:", anime_names)
-
-        anime_names2 = set()
-        for name in title_from_anilist:
-            anime_name = difflib.get_close_matches(name, anime_names, n=1, cutoff=0.6)
-
-            if anime_name : anime_names2.add(anime_name[0])
-
-        # For debug
-        print("Second filtre:", anime_names2)
+        anime_names = self.filter_anime(title_from_anilist, data, 0.89)
+        print(f"Neko-sama title : {anime_names}")
 
         # Get the anime from the json file
         for anime in data:
@@ -94,10 +105,8 @@ class NekoSamaScraper:
             title_name = anime['title'].lower() if anime['title'] else 'a'
             romanji_name = anime['title_romanji'].lower() if anime['title_romanji'] else 'a'
 
-            for name in anime_names2:
-                if name in [english_name, title_name, romanji_name]:
-                    return anime
-        
+            if anime_names in [english_name, title_name, romanji_name]:
+                return anime
         return None
 
 
