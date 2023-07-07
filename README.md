@@ -47,6 +47,7 @@ Link to premid : https://premid.app/store/presences/OtakuEyes
 - Docker export
 - Add easter egg on the website
 - Add more anime sources
+- Implement the ArtPlayer for a better video player : https://github.com/zhw2590582/ArtPlayer
 ----
 
 Feel free to give your opinion about the application and on what it can be improved
