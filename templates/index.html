@@ -29,5 +29,14 @@
             </div>
     {% endfor %}
     </div>
+    <div id="anime-list" class="results">
+        <!-- Anime entries will be dynamically added here -->
+    </div>
 </div>
+<script src="{{ url_for('static', filename='js/save.js') }}"></script>
+<script>
+    window.onload = function() {
+        loadLocalStorage();
+    };
+</script>
 {% endblock %}
