@@ -13,7 +13,7 @@
 
 
 {% block body %}
-
+<script src="{{ url_for('static', filename='js/artplayer.js') }}"></script>
 
 <div class="page-content">
 
@@ -117,6 +117,7 @@
 
 </div>
 <script src="{{ url_for('static', filename='js/save.js') }}"></script>
+
 <script>
     window.onload = function() {
         var episode = "{{ ep }}";

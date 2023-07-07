@@ -9,7 +9,6 @@ function storeAnimeAndEpisode(episode, id, image, title) {
 
     // Retrieve stored anime data from local storage
     var storedAnime = localStorage.getItem('anime');
-    console.log(storedAnime);
 
     if (storedAnime) {
         // Parse the stored anime data from JSON to an array of objects
