@@ -40,7 +40,7 @@ Link to premid : https://premid.app/store/presences/OtakuEyes
 
 ## Upcoming features
 - Link you account to Anilist
-- Resume your viewing
+- Resume your viewing ✅
 - Add favorites
 - Download anime
 - Docker export
