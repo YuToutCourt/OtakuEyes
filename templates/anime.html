@@ -75,9 +75,9 @@
             </select>
 
 
-        <div class="lecteur">
+        <div id="lecteur">
             {% for url_video in urls_video %}
-                <iframe src="{{url_video}}" frameborder="0" allowfullscreen width="840" height="500"></iframe>
+                <iframe id="video-frame" src="{{url_video}}" frameborder="0" allowfullscreen width="840" height="500"></iframe>
             {% endfor %}
         </div>
 
@@ -115,8 +115,17 @@
     </div>
     {% endif %}
 
-
 </div>
+<script src="{{ url_for('static', filename='js/save.js') }}"></script>
+<script>
+    window.onload = function() {
+        var episode = "{{ ep }}";
+        var animeId = "{{ id }}";
+        var image = "{{ anime.image_url }}";
+        var animeTitle = "{{ anime.title['english'] or anime.title['romaji'] }}";
 
+        storeAnimeAndEpisode(episode, animeId, image, animeTitle);
+    };
+</script>
 
 {% endblock %}

@@ -226,7 +226,7 @@ article {
     text-transform: lowercase;
 }
 
-.lecteur {
+#lecteur {
 	padding-top: 20px;
 	padding-left: 25%;
 }
