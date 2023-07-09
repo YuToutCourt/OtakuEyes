@@ -166,6 +166,15 @@ article {
 	z-index: 10; /* Valeur de z-index supérieure */
 }
 
+.delete-image {
+    cursor: pointer;
+    height: 35px;
+    width: 35px;
+    transform: translate(500%, 750%);
+	position: absolute;
+	z-index: 10; /* Valeur de z-index supérieure */
+  }
+
 .header {
     background-color: rgb(21, 31, 46);
 }

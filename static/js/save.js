@@ -1,5 +1,6 @@
 function storeAnimeAndEpisode(episode, id, image, title) {
     
+    // If any episode was found, return
     if (episode == -1) return;
     
     var newEpisode = episode;
@@ -52,6 +53,8 @@ function storeAnimeAndEpisode(episode, id, image, title) {
         localStorage.setItem('anime', JSON.stringify(animeArray));
     }
 }
+
+
 function loadLocalStorage() {
     var storedAnime = localStorage.getItem('anime');
 
@@ -84,13 +87,66 @@ function loadLocalStorage() {
             var titleText = document.createTextNode(`${anime_['title']} - Ep ${anime_['episode']}`);
             linkTitle.appendChild(titleText);
 
+            // Create the delete button
+            // var deleteButton = document.createElement('button');
+            // deleteButton.innerHTML = '&#x2716;';
+
+            var deleteButton = document.createElement('img');
+            deleteButton.setAttribute('src', '/static/image/delete.png');
+            deleteButton.setAttribute('alt', 'Delete');
+            deleteButton.setAttribute('class', 'delete-image');
+
+
+            deleteButton.addEventListener('click', function() {
+                var animeId = anime_['id'];
+                AjaxDelete(animeId, article);
+            });
+
             // Append elements to the article
             linkImage.appendChild(image);
             article.appendChild(linkImage);
             article.appendChild(linkTitle);
+            article.appendChild(deleteButton);
 
             // Append the article to the anime-list element
             animeList.appendChild(article);
         });
     }
 };
+
+
+function AjaxDelete(animeId, article) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('DELETE', '/api/delete-anime/', true);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 204) {
+            // La suppression s'est effectuée avec succès
+
+            // Supprimez l'élément de la liste d'animes affichée
+            article.remove();
+        }
+    };
+    xhr.send();
+    deleteAnimeFromLocalStorage(animeId);
+}
+
+function deleteAnimeFromLocalStorage(animeId) {
+    var storedAnime = localStorage.getItem('anime');
+    if (storedAnime) {
+      var storedAnimeArray = JSON.parse(storedAnime);
+  
+      // Recherchez l'anime avec l'ID correspondant et supprimez-le de la liste
+      var updatedAnimeArray = storedAnimeArray.filter(function(anime) {
+        return anime.id !== animeId;
+      });
+  
+      // Mettez à jour le localStorage avec la nouvelle liste d'animes
+      localStorage.setItem('anime', JSON.stringify(updatedAnimeArray));
+  
+      // Supprimer l'élément de la liste d'animes affichée
+      var article = document.getElementById('anime-' + animeId);
+      if (article) {
+        article.remove();
+      }
+    }
+}

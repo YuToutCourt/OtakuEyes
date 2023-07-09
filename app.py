@@ -1,7 +1,7 @@
 import urllib3
 import requests
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 
 from anilist.anilist_api import get_ids_by_name, retrive_anime, top_anime_by_trends, top_anime_by_popularity, top_anime_this_season, get_current_season, get_recommendations_sorted_by_rating, get_random_anime
 from anime.anime import create_anime_object
@@ -82,6 +82,10 @@ def random_anime():
     id = get_random_anime()
     print(id)
     return {'id': id}, 200
+
+@app.route('/api/delete-anime/', methods=['DELETE'])
+def delete_anime():
+    return jsonify(success=True), 204
 
 
 if __name__ == '__main__':
