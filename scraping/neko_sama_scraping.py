@@ -80,6 +80,8 @@ class NekoSamaScraper:
 
             if anime_name : anime_names2.add(anime_name[0])
 
+        if len(anime_names2) == 0 : return None
+
         # For debug
         print("Second filtre:", anime_names2, cutoff)
 
