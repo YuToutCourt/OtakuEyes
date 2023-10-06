@@ -26,7 +26,7 @@ pip install -r requirements.txt
 
 ```bash
 python3 app.py
-# And then goto this url : http://127.0.0.1:5000
+# And then goto this url : http://127.0.0.1:8081
 ```
 
 ## Premid Presences with OtakuEyes!
