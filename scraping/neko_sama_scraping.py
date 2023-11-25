@@ -6,6 +6,7 @@ import requests
 from bs4 import BeautifulSoup
 from anime.anime import create_anime_object
 from anilist.anilist_api import get_next_ep, get_id_by_name, retrive_anime
+from icecream import ic
 
 # URL_JSON = "https://neko-sama.fr/animes-search-vostfr.json"
 URL_JSON = "https://185.146.232.127/animes-search-vostfr.json"
@@ -42,7 +43,7 @@ class NekoSamaScraper:
             anime_data['data']['Media']['episodes'] = ep
             animes_list.add(create_anime_object(anime_data.get('data').get('Media')))
 
-        print(animes_list)
+        ic(animes_list)
         return animes_list
 
     def get_json(self):
@@ -72,7 +73,7 @@ class NekoSamaScraper:
                 if anime_name2 : anime_names.add(anime_name2[0])
 
         # For debug
-        print("First filtre:", anime_names, cutoff)
+        ic("First filtre:", anime_names, cutoff)
 
         anime_names2 = set()
         for name in title_from_anilist:
@@ -83,7 +84,7 @@ class NekoSamaScraper:
         if len(anime_names2) == 0 : return None
 
         # For debug
-        print("Second filtre:", anime_names2, cutoff)
+        ic("Second filtre:", anime_names2, cutoff)
 
         if len(anime_names2) > 1 and cutoff+0.05 < 1:
             return self.filter_anime(title_from_anilist, data, cutoff+0.05)
@@ -96,10 +97,10 @@ class NekoSamaScraper:
         data = self.get_json()
         
         title_from_anilist = [title.lower() for title in title_from_anilist if title is not None]
-        print(f"Anilist title : {title_from_anilist}")
+        ic(title_from_anilist)
 
         anime_names = self.filter_anime(title_from_anilist, data, 0.89)
-        print(f"Neko-sama title : {anime_names}")
+        ic(anime_names)
 
         # Get the anime from the json file
         for anime in data:
@@ -134,7 +135,7 @@ class NekoSamaScraper:
         """Return the url of the episode from neko_sama.json"""
 
         url_episode = self.get_link_ep_anime(anime, episode, lang)
-        print(url_episode)
+        ic(url_episode)
         r = requests.get(url_episode, verify=False)
         soup = BeautifulSoup(r.text, 'lxml')
 

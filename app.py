@@ -7,7 +7,7 @@ from anilist.anilist_api import get_ids_by_name, retrive_anime, top_anime_by_tre
 from anime.anime import create_anime_object
 
 from scraping.neko_sama_scraping import NekoSamaScraper
-
+from icecream import ic
 
 app = Flask(__name__)
 urllib3.disable_warnings()
@@ -80,7 +80,7 @@ def top_anime():
 @app.route('/api/random_anime')
 def random_anime():
     id = get_random_anime()
-    print(id)
+    ic(id)
     return {'id': id}, 200
 
 @app.route('/api/delete-anime/', methods=['DELETE'])

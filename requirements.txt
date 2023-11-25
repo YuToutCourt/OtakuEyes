@@ -3,3 +3,4 @@ bs4==0.0.1
 Flask==2.3.2
 distlib==0.3.6
 lxml==4.9.2
+icecream

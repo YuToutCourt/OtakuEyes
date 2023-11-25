@@ -2,7 +2,7 @@ import random
 import requests
 
 from datetime import datetime
-
+from icecream import ic
 
 SEASON = ['WINTER', 'SPRING', 'SUMMER', 'FALL']
 URL = 'https://graphql.anilist.co'
@@ -42,7 +42,7 @@ def get_random_anime():
     anime_list = data['data']['Page']['media']
 
     random_anime = random.choice(anime_list)
-    print(random_anime)
+    ic(random_anime)
 
     title = [random_anime['title']['romaji'], random_anime['title']['english'], random_anime['title']['native']]
 
