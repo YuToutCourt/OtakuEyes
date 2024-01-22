@@ -324,5 +324,9 @@ def get_recommendations_sorted_by_rating(id):
     variables = { 'id': id }
 
     response = requests.post(URL, json={'query': query, 'variables': variables})
+    
+    data = response.json()
 
-    return response.json()
+    return data if data.get('data').get('Media').get('recommendations').get("nodes") else []
+
+
