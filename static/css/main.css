@@ -343,3 +343,99 @@ article {
     transform: translate(-50%, -50%);
   }
 
+
+  
+/*============ La popup ============*/
+
+.popup-container{
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(49, 49, 49, 0.486);
+    position: fixed;
+    pointer-events: none;
+    top: 0;
+    z-index: 1;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.popup-container.show{
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.popup.anim{
+    animation: slideUp 0.5s;
+}
+
+.popup h2,.popup h4{
+    display: contents;
+    margin: 0;
+}
+
+.popup h4{
+    font-weight: 500;
+}
+
+.popup{
+    max-width: 100%;
+    padding: 0px 30px 30px 30px;
+    border-radius: 18px;
+    background-color: #ffffff;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 50px 10px rgba(0, 0, 0, 0.199);
+}
+
+#popup-close-button-img{
+    margin: 13px -100% 0 0;
+    width: 30px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+
+#surprised{
+    transform: translate(280%, -80%);
+}
+
+
+#popup-close-button-img:hover, #popup-button-naviguer:hover, #bouton_retour:hover {
+    transform: scale(1.05);
+}
+
+#popup-button-naviguer{
+    background-color: #2f3b53bb;
+    color: white;
+    text-decoration: none;
+    padding: 8px;
+    border-radius: 10px;
+    display: flex;
+    width: 180px;
+    transition: all 0.2s;
+    margin: 10px;
+    font-weight: 500;
+}
+
+#popup-button-naviguer img{
+    margin-right: 8px;
+}
+
+#popup-button-naviguer-mail{
+    display: flex;
+    margin-top: 8px;
+    width: 110px;
+    font-weight: 500;
+    justify-content: space-around;
+}
+
+.popup p {
+    margin: 0;
+}
+/*============ Fin la popup ============*/

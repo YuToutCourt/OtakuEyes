@@ -73,6 +73,17 @@
                 {% endfor %}
             </select>
 
+        <div class="popup-container" id="popup-container">
+            <div class="popup">
+                    <img src="{{ url_for('static', filename='image/close.png') }}" id="popup-close-button-img">
+                    <br>
+                    <h4>You don't have AdBlock ....</h4>
+                    <img src="{{ url_for('static', filename='image/surprised.png') }}" width="55px" height="59px" id="surprised">
+                    <a id="popup-button-naviguer" href="https://ublockorigin.com/fr" target="_blank">
+                    <img src="{{ url_for('static', filename='image/click.png') }}" alt="Postuler sur le site internet" width="50px" height="50px">Install AdBlock</a>
+            </div>
+        </div>
+
 
         <div id="lecteur">
             {% for url_video in urls_video %}
@@ -125,6 +136,36 @@
         var animeTitle = "{{ anime.title['english'] or anime.title['romaji'] }}";
 
         storeAnimeAndEpisode(episode, animeId, image, animeTitle);
+
+        var ADS_URL = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
+
+        function checkAdsBlocked(callback) {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == XMLHttpRequest.DONE) {
+                    callback(xhr.status === 0 || xhr.responseURL !== ADS_URL);
+                }
+            };
+            xhr.open('HEAD', ADS_URL, true);
+            xhr.send(null);
+        }
+
+        checkAdsBlocked(function(adsBlocked) {
+            if (adsBlocked) {
+                console.log('ads are blocked: ' + adsBlocked);
+
+            }
+            else {
+                console.log('ads are not blocked: ' + adsBlocked);
+                document.getElementById('popup-container').classList.add('show');
+
+                document.getElementById('popup-close-button-img').addEventListener('click', function() {
+                    document.getElementById('popup-container').classList.remove('show');
+                });
+            }
+        });
+
+
     };
 </script>
 
